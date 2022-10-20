@@ -41,25 +41,86 @@ Homepage
 
 - GET / 
   - renders the homepage
+  - publications (find)
 - GET /auth/signup
-  - redirects to / if user logged in
-  - renders the signup form (with flash msg)
+  - renders the signup form in a new page
 - POST /auth/signup
-  - redirects to / if user logged in
+  - redirects to /
   - body:
     - username
     - email
     - password
 - GET /auth/login
-  - redirects to / if user logged in
-  - renders the login form (with flash msg)
+  - renders the login form in the home page
 - POST /auth/login
   - redirects to / if user logged in
   - body:
-    - username
+    - email
     - password
 - POST /auth/logout
-  - body: (empty)
+  - redirects to / if user logged in
+
+
+- GET /profile
+ - renders the profile in a new page
+    - profileImage
+    - username
+    - email
+    - user publications (from Publications)
+    - edit profile button
+    - add personal links button
+- GET /profile/edit
+  - renders the profile edit page
+- POST /profile/edit
+  - profileImage
+  - email
+  - old password
+  - new password
+  - redirect to /profile
+- GET /profile/links
+  - renders profile links addition form
+- POST /profile/links
+  - creates new link
+  - redirect to /profile
+
+
+- GET /admin/users
+  - renders user list for the admin
+- GET /admin/users/:userId/edit
+  - renders user details page
+  - edit user button
+  - delete user button
+- POST /admin/users/:userId/edit
+  - edits the user
+  - username
+  - email
+  - password
+  - profileImage
+  - role
+  - redirects to the user list
+- POST /admin/users/:userId/delete
+  - deletes the user
+  - redirects to the user list
+- GET /admin/publications
+  - renders publications list for the admin
+- GET /admin/publications/:publicationId/details
+  - renders publication details
+- GET /admin/publications/:publicationId/edit
+  - renders publication edit form
+- POST /admin/publications/:publicationId/edit
+  - edits the publication
+  - title
+  - content
+  - file
+  - redirects to the publications list
+- POST /admin/publications/:publicationId/delete
+  - deletes the publication
+  - redirects to the publications list
+- POST /admin/publications/:publicationId/approval
+  - add a publication to the list
+  - redirects to the publication list****
+
+
 
 - GET /events
   - renders the event list + the create form
