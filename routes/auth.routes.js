@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
+const bcrypt = require("bcryptjs");
 
 //* Authentication routes
 
@@ -12,10 +13,10 @@ router.get("/signup", (req, res, next) => {
 
 // POST "/auth/signup" => Retrieves new user info from signup.hbs and creates the profile in the DB
 router.post("/signup", async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, age, email, password } = req.body;
 
   // Validation 1: All the fields must not be empty
-  if (username === "" || email === "" || password === "") {
+  if (username === "" || age === "" || email === "" || password === "") {
     res.render("auth/signup.hbs", {
       errorMessage: "All the fields must be completed",
     });
@@ -63,7 +64,7 @@ router.post("/signup", async (req, res, next) => {
     }
 
     // Validation 6: User doesn't already exists in the DB
-    const foundUser = await User.find({ username: username });
+    const foundUser = await User.findOne({ username: username });
     if (foundUser !== null) {
       res.render("auth/signup.hbs", {
         errorMessage: "Username has been already registered in the website.",
@@ -78,6 +79,7 @@ router.post("/signup", async (req, res, next) => {
     // Add new user to the DB
     const newUser = {
       username: username,
+      age: age,
       email: email,
       password: hashedPassword,
     };
@@ -89,5 +91,67 @@ router.post("/signup", async (req, res, next) => {
     next(error);
   }
 });
+
+
+// * Log In routes
+
+// GET /auth/login => Renders user login page
+router.get("/login", (req, res, next) => {
+    res.render("auth/login.hbs")
+})
+
+// POST /auth/login => Receives user credentials and validate user
+router.post("/login", async (req, res, next) => {
+    const { email, password } = req.body;
+  
+    // Validation 1: fields mustn't be empty
+    if (email === "" || password === "") {
+      res.render("auth/login.hbs", {
+        errorMessage: "All the fields must be completed",
+      });
+      return;
+    }
+  
+    try {
+      // Validation 2: User is already registered in the DB
+      const foundUser = await User.findOne({ email: email });
+      if (foundUser === null) {
+        res.render("auth/login.hbs", {
+          errorMessage: "Incorrect credentials",
+        });
+        return;
+      }
+  
+      // Validation 3: Password is already registered in the DB
+      const validPassword = await bcrypt.compare(password, foundUser.password);
+      if (validPassword === false) {
+        res.render("auth/login.hbs", {
+          errorMessage: "Incorrect credentials",
+        });
+        return;
+      }
+  
+      // Create an active user session
+      req.session.userOnline = foundUser;
+  
+      // Verifying that the session has been successfully created
+      req.session.save(() => {
+        res.redirect("/");
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+
+//* Log Out route
+// GET "/auth/logout" => closes the current user session (destroy)
+router.get("/logout", (req, res, next) => {
+
+  req.session.destroy(() => {
+    res.redirect("/")
+  })
+
+})
 
 module.exports = router;

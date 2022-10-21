@@ -15,27 +15,20 @@
    <body>
 
       <a href="/">Home</a>
-      
-      {{!-- <div class="container d-flex">
-         <form action="/auth/login" method="POST" class="d-flex flex-column bg-light col-md-2">
-         <label for="email">Email</label>
-         <input type="text" name="email">
-
-         <label for="password">Password</label>
-         <input type="password" name="password">
-
-         <div>
-            <a href="/signup">Sign Up</a>
-            <a href="/login">
-               <button>Log In</button>
-            </a>
-         </div>
-      </form>
-      </div> --}}
-
-      {{>login}}
-      
-      
+      {{#if isUserActive}}
+         <a href="/profile">Profile</a>
+         <a href="#">New Publication</a>
+         <a href="/auth/logout">Log Out</a>
+         {{#if isAdminOrModeratorOn}}
+            <a href="/admin/publications">Publications List</a>
+            {{#if isAdminOn}}
+               <a href="/admin/users">Users List</a>
+            {{/if}}
+        {{/if}}
+      {{else}}
+         <a href="/auth/signup">Sign Up</a>
+         <a href="/auth/login">Log In</a>
+      {{/if}}
       
       {{{body}}}
       

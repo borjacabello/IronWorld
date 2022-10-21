@@ -1,22 +1,22 @@
-<div>
-  <div>
-    <h4>REGISTER WEB</h4>
-  </div>
+<div class="container d-flex flex-column align-items-center">
+  <h4>Sign Up</h4>
 
-  <div>
-    <form action="/auth/signup" method="POST">
-      <label for="username">UserName</label>
-      <input type="text" name="username" />
-      <br />
-      <label for="email">Em@il</label>
-      <input type="text" name="email" />
-      <br />
-      <label for="password">Password</label>
-      <input type="password" name="password" />
-      <br />
-      <p style="color: red;">{{errorMessage}}</p>
-      <button>Register</button>
-    </form>
+  <form action="/auth/signup" method="POST" class="d-flex flex-column align-items-center bg-light col-md-2">
+    <label for="username">UserName</label>
+    <input type="text" name="username" />
+    
+    <label for="age">Age</label>
+    <input type="number" name="age" min="0" max="99">
+    
+    <label for="email">Email</label>
+    <input type="text" name="email" />
+    
+    <label for="password">Password</label>
+    <input type="password" name="password" />
+    
+    <p style="color: red">{{errorMessage}}</p>
 
-  </div>
+    <button>Register</button>
+  </form>
+
 </div>
