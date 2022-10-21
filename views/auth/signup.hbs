@@ -1,20 +1,21 @@
+<div class="container d-flex flex-column align-items-center">
+  <h4>Sign Up</h4>
 
-<div>
-    <h4>REGISTER WEB</h4>
-</div>
-
-<div>
-  <form action="/" method="POST">
+  <form action="/auth/signup" method="POST" class="d-flex flex-column align-items-center bg-light col-md-2">
     <label for="username">UserName</label>
     <input type="text" name="username" />
-    <br />
-    <label for="email">Em@il</label>
+    
+    <label for="age">Age</label>
+    <input type="number" name="age" min="0" max="99">
+    
+    <label for="email">Email</label>
     <input type="text" name="email" />
-    <br />
+    
     <label for="password">Password</label>
-    <input type="text" name="password" />
-    <br />
-    <p style="background-color: red;">{{errorMesage}}</p>
+    <input type="password" name="password" />
+    
+    <p style="color: red">{{errorMessage}}</p>
+
     <button>Register</button>
   </form>
 
