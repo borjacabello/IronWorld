@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    age: {
+      type: Number,
+    },
     profileImage: {
       type: String,
       default: "https://pixlok.com/wp-content/uploads/2021/03/default-user-profile-picture.jpg"
