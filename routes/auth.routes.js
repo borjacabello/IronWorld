@@ -54,7 +54,7 @@ router.post("/signup", async (req, res, next) => {
   // Async
   try {
     // Validation 5: Email doesn't already exists in the DB
-    const foundEmail = await User.find({ email: email });
+    const foundEmail = await User.findOne({ email: email });
     if (foundEmail !== null) {
       res.render("auth/signup.hbs", {
         errorMessage: "Email has been already registered in the website.",
