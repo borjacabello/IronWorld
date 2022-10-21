@@ -14,5 +14,9 @@ router.use("/auth", authRoutes)
 const profileRoutes = require("./profile.routes")
 router.use("/profile", profileRoutes)
 
+// Admin routes
+const adminRoutes = require("./admin.routes")
+router.use("/admin", adminRoutes)
+
 // Export
 module.exports = router;

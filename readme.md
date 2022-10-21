@@ -41,7 +41,8 @@ Homepage
 
 - GET / 
   - renders the homepage
-  - publications (find)
+  - publications (find, approved publications with middleware)
+    - publications will have a button for add comment
 - GET /auth/signup
   - renders the signup form in a new page
 - POST /auth/signup
@@ -50,8 +51,8 @@ Homepage
     - username
     - email
     - password
-- GET /auth/login
-  - renders the login form in the home page
+{{{- GET /auth/login
+  - renders the login form in the home page}}}
 - POST /auth/login
   - redirects to / if user logged in
   - body:
@@ -59,6 +60,11 @@ Homepage
     - password
 - POST /auth/logout
   - redirects to / if user logged in
+
+
+- POST /user/:publicationId/create
+  - creates a new publication in the DB (pending for approval)
+  - redirects to /
 
 
 - GET /profile
@@ -121,24 +127,7 @@ Homepage
   - redirects to the publication list****
 
 
-
-- GET /events
-  - renders the event list + the create form
-- POST /events/create 
-  - redirects to / if user is anonymous
-  - body: 
-    - name
-    - date
-    - location
-    - description
-- GET /events/:id
-  - renders the event detail page
-  - includes the list of attendees
-  - attend button if user not attending yet
-- POST /events/:id/attend 
-  - redirects to / if user is anonymous
-  - body: (empty - the user is already stored in the session)
-
+- 
 
 ## Models
 
