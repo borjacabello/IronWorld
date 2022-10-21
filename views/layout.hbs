@@ -16,7 +16,7 @@
 
       <a href="/">Home</a>
       
-      <div class="container d-flex">
+      {{!-- <div class="container d-flex">
          <form action="/auth/login" method="POST" class="d-flex flex-column bg-light col-md-2">
          <label for="email">Email</label>
          <input type="text" name="email">
@@ -31,9 +31,11 @@
             </a>
          </div>
       </form>
-      </div>
+      </div> --}}
+
+      {{>login}}
       
-      <h2></h2>
+      
       {{{body}}}
       
       <script src="/js/script.js"></script>

@@ -14,7 +14,7 @@ const commentSchema = new mongoose.Schema(
     publication: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Publication",
-    },
+    }
   },
   {
     timestamps: true,
