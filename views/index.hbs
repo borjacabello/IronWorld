@@ -1,0 +1,36 @@
+<div class="col-7 d-flex flex-column align-items-start justify-content-start">
+    <h1>IronWorld</h1>
+
+    {{#if isUserActive}}
+    <form id ="publication" action="/user/publication/create" method="POST" class="bg-light">
+        <div>
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id = "title">
+        </div>
+        
+        <div>
+            <label for="content" class="form-label">Description</label>
+            <input name="content" class="form-control" placeholder="What's happening?" rows="3">
+        </div>
+        
+        <div>
+            <label for="file" class="form-label">File:</label>
+            <input type="text" name="file" class="form-control" id="file">
+        </div>
+
+        <button class="btn btn-primary">POST</button>
+    </form>
+    {{/if}}
+
+    {{#each publications}}
+        <div id="news" class="bg-light">
+    {{#if approved}}
+        <p>{{title}}</p>
+        <p>{{content}}</p>
+        <p>{{user.username}}</p>
+        {{!--<p>{{file}}</p>--}}
+    {{/if}}
+        </div>
+    {{/each}}
+    
+</div>

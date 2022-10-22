@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
+const Publication = require("../models/Publication.model");
 
 // Import middlewares
 const {
@@ -8,6 +9,8 @@ const {
   isAdmin,
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
+
+
 
 //* User management routes
 // GET "/admin/users" => renders the user list only for admin management purposes
@@ -62,6 +65,49 @@ router.post("/users/:userId/edit", isAdmin, async (req, res, next) => {
     }
 })
 
+// POST "/admin/users/:userId/delete" => deletes user from user list and redirects to user list
+router.post("/users/:userId/delete", isAdmin, async (req, res, next) => {
+    const {userId} = req.params
+
+    try {
+        await User.findByIdAndDelete(userId)
+
+        res.redirect("/admin/users")
+    } catch(error) {
+        next(error)
+    }
+})
+
+
 //* Publication management routes
+// GET "/admin/publications" => renders publication list for both moderator and admin
+router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
+  try {
+    const publicationList = await Publication.find()
+
+    res.render("publications/list.hbs", {
+      publicationList
+    })
+  } catch(error) {
+    next(error)
+  }
+})
+
+// POST "/admin/publications/:publicationId/approval" => approves current publication to be added to the index page list
+router.post("/publications/:publicationId/approval", isModeratorOrAdmin, async (req, res, next) => {
+  const {publicationId} = req.params
+  
+  try {
+    // Changes boolean value "approved" to true, to use it after in index.hbs to see the publication
+    const publicationToApprove = await Publication.findByIdAndUpdate(publicationId, {approved: true}, {new: true})
+    console.log(publicationToApprove)
+
+    res.redirect("/")
+
+  } catch(error) {
+    next(error)
+  }
+})
+
 
 module.exports = router;

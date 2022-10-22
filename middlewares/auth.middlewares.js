@@ -20,10 +20,10 @@ const isAdmin = (req, res, next) => {
 
 // Moderator middleware => to check moderadtor user condition
 const isModeratorOrAdmin = (req, res, next) => {
-    if (req.session.userOnline.role !== "moderator" || req.session.userOnline.role !== "admin") {
-        res.redirect("/auth/login")
-    } else {
+    if (req.session.userOnline.role === "moderator" || req.session.userOnline.role === "admin") {
         next()
+    } else {
+        res.redirect("/auth/login")
     }
 }
 

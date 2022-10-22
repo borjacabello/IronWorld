@@ -19,6 +19,10 @@ const publicationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    approved: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,
