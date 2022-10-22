@@ -1,12 +1,10 @@
-<div class="col-9">
+<div class="col-9 d-flex flex-column align-items-start justify-content-start">
 
-    <h2>{{profileDetails.username}}`s Profile</h2>
-    <div>
-        <img src="{{profileDetails.profileImage}}" alt="profile-image" width="180px">
-    </div>
-    <div>
-    <p>Email: {{profileDetails.email}}</p>
-    <p>Age: {{profileDetails.age}}</p>
-    </div>
+    {{#with profileDetails}}
+    <h2>{{username}}`s Profile</h2>
+    <img src="{{profileImage}}" alt="profile-image" width="180px">
+    <p>Email: {{email}}</p>
+    <p>Age: {{age}}</p>
+    {{/with}}
 
 </div>

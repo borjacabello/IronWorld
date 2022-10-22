@@ -27,4 +27,23 @@ h1 {
   margin: 0;
 }
 
+/*Sign up page render*/
+#sign-up-page {
+  height: 100%;
+}
 
+
+/*Log in page render*/
+#log-in-page {
+  height: 100%;
+}
+
+
+/*User list page render*/
+#user-list a {
+  margin-left: 10vw;
+}
+
+#delete-user-form {
+  margin-left: 2vw;
+}

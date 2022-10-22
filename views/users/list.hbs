@@ -1,0 +1,16 @@
+<div id="user-list" class="col-10 d-flex flex-column align-items-start justify-content-start">
+    <h2>User list</h2>
+
+    {{#each userList}}
+        <div class="d-flex flex-row justify-content-start">
+            <p>{{username}}</p>
+            <a href="/admin/users/{{_id}}/edit">
+                <button>Edit</button>
+            </a>
+            <form id="delete-user-form" action="/admin/users/{{_id}}/delete" method="POST">
+                <button>Delete</button>
+            </form>
+        </div>
+    {{/each}}
+    
+</div>
