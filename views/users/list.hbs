@@ -1,6 +1,7 @@
 <div id="user-list" class="col-10 d-flex flex-column align-items-start justify-content-start">
     <h2>User list</h2>
 
+    {{!-- Display approve, edit and delete buttons in the user list --}}
     {{#each userList}}
         <div class="d-flex flex-row justify-content-start">
             <p>{{username}}</p>
@@ -12,5 +13,4 @@
             </form>
         </div>
     {{/each}}
-    
 </div>

@@ -1,10 +1,9 @@
-<div class="col-10 d-flex flex-column align-items-center justify-content-start">
+<div class="col-10 d-flex flex-column align-items-start justify-content-start">
     
-    <h2>{{publicationToEdit.title}}</h2>
-    <h4>By: {{publicationToEdit.user.username}}</h3>
+    <h2>Publication details: {{publicationToEdit.title}}</h2>
+    <p>User Name:{{publicationToEdit.user.username}}</p>
 
     {{#with publicationToEdit}}
-    
     <form action="/admin/publications/{{_id}}/edit" method="POST" class="bg-light">
         <div>
             <label for="title" class="form-label">Title: </label>
@@ -21,14 +20,12 @@
             <input type="text" name="file" value="{{file}}" class="form-control">
         </div>
 
-          {{!-- <div>
+        {{!-- <div>
             <label for="approved" class="form-label">Approved:</label>
             <input type="text" name="approved" value="{{approved}}" class="form-control">
         </div> PASAR FOR EACH DEL ARRAY?--}}
 
-       
-
-        
         <button class="btn btn-primary">Edit</button>
     </form>
     {{/with}}
+</div>

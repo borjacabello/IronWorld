@@ -1,6 +1,7 @@
 <div class="col-10 d-flex flex-column align-items-center justify-content-start">
     <h2>User details: {{userDetails.username}}</h2>
 
+    {{!-- Renders user details info in inputs to be able to edit them --}}
     {{#with userDetails}}
     <form action="/admin/users/{{_id}}/edit" method="POST" class="bg-light">
         <div>

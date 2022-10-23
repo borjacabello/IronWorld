@@ -2,7 +2,7 @@
     <h2>Publications list</h2>
      {{#if approved}}
 
-            {{#each pendingList}}
+        {{#each pendingList}}
         <div class="d-flex flex-row justify-content-start">
             <p>{{title}}</p>
             <form action="/admin/publications/{{_id}}/approval" method="POST">
@@ -15,10 +15,9 @@
                 <button>Delete</button>
             </form>
         </div>
-             {{/each}}
+        {{/each}}
 
      {{/if}}
-    
 </div>
 
 

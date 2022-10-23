@@ -11,7 +11,7 @@ router.get("/", async (req, res, next) => {
 
   try {
     const publications = await Publication.find().populate("user")
-    console.log(publications)
+    
     res.render("index", {
       publications
     });
@@ -21,6 +21,7 @@ router.get("/", async (req, res, next) => {
   }
  
 });
+
 
 // Auth routes
 const authRoutes = require("./auth.routes")

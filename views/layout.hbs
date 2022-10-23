@@ -23,7 +23,8 @@
          <a href="/">Home</a>
          {{#if isUserActive}}
             <a href="/profile">Profile</a>
-            <a href="#">New Publication</a>
+            {{!--<a href="#">New Publication</a>--}}
+            {{>newpublication}}
             {{#if isAdminOrModeratorOn}}
                <a href="/admin/publications">Publications List</a>
                {{#if isAdminOn}}
