@@ -23,7 +23,7 @@
          <a href="/">Home</a>
          {{#if isUserActive}}
             <a href="/profile">Profile</a>
-            {{!--<a href="#">New Publication</a>--}}
+            {{!-- New publication partial: <a></a> to new publication and modal with form to send new publication information --}}
             {{>newpublication}}
             {{#if isAdminOrModeratorOn}}
                <a href="/admin/publications">Publications List</a>

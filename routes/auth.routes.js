@@ -94,7 +94,6 @@ router.post("/signup", async (req, res, next) => {
 
 
 // * Log In routes
-
 // GET /auth/login => Renders user login page
 router.get("/login", (req, res, next) => {
     res.render("auth/login.hbs")

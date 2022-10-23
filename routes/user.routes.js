@@ -22,7 +22,6 @@ router.post("/publication/create", isUserLoggedIn, async (req, res, next) => {
     content,
     file,
     user: req.session.userOnline,
-    //comment,
     //user: res.locals.currentUser also works
   };
 
@@ -45,31 +44,20 @@ router.post("/publication/create", isUserLoggedIn, async (req, res, next) => {
 
 
 // POST "/user/coment/create" => creates a new coment for a publication in the DB
-router.post(
-  "/:publicationId/commentcreate",
-  isUserLoggedIn,
-  async (req, res, next) => {
+router.post("/:publicationId/comment/create", isUserLoggedIn, async (req, res, next) => {
     const { publicationId } = req.params;
     const { message } = req.body;
-    console.log(req.params);
-
-    // const newComent = {
-    //     message,
-    //     user: req.session.userOnline,
-    //     publication: response1
-
-    // }
+    
     try {
-      const response1 = await Publication.findById(publicationId);
-      const addedComment = await Comment.create({
+      const newComment = {
         message,
-        user: req.session.userOnline,
-        publication: response1,
-      });
+        user: req.session.userOnline
+        //publication: publicationToComment
+      }
 
-      const x = await Publication.findByIdAndUpdate(publicationId, {
-        comment: [addedComment],
-      });
+      const createdComment = await Comment.create(newComment);
+
+      await Publication.findByIdAndUpdate(publicationId, {$push: {comments: createdComment}}, {new: true});
 
       res.redirect("/");
     } catch (error) {

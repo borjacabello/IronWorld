@@ -24,9 +24,9 @@ const publicationSchema = new mongoose.Schema(
       enum: [true, false],
       default: false
     },
-     comment: {
+    comments: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "Comment",
+      ref: "Comment"
     }
   },
   {

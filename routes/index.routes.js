@@ -10,7 +10,8 @@ const Comment = require("../models/Comment.model")
 router.get("/", async (req, res, next) => {
 
   try {
-    const publications = await Publication.find().populate("user")
+    const publications = await Publication.find().populate("user").populate("comments")
+    //const comments = await Comment.find().populate("publication")
     
     res.render("index", {
       publications

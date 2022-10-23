@@ -1,26 +1,24 @@
-<div class="col-7 d-flex flex-column align-items-start justify-content-start">
+<div class="col-8 d-flex flex-column align-items-start justify-content-start">
     <h1>IronWorld</h1>
 
     {{!-- Let publications in the DB to be shown in Home page if approved === true --}}
     {{#each publications}}
         {{#if approved}}
             <div id="news" class="bg-light">
-                <p>{{title}}</p>
+                <p>Title: {{title}}</p>
                 <p>{{content}}</p>
-                <p>{{user.username}}</p>
+                <p>User:{{user.username}}</p>
+                <form action="/user/{{_id}}/comment/create" method="POST" class="d-flex">
+                    <label for="message" class="form-label">Anything to say about?</label>
+                    <input type="text" name="message" class="form-control">
+
+                    <button>Comment</button>
+                </form>
+                <h5>Comments:</h5>
+                {{#each comments}}
+                    <p>{{message}}</p>
+                {{/each}}
             </div>
         {{/if}}
     {{/each}}
 </div>
-
-{{!--{{#each comment}}
-        EL ARRAY ESTA VACIO}}
-        <p>{{this}}</p>
-         {{/each}}
-        {{!--<p>{{file}}</p>}}
-        <div>
-        {{!--<form action="/user/{{_id}}/commentcreate" method="POST">
-        <input type="text" name="message">
-        <button>Coment</button>
-        </form>}}
-        </div>--}}
