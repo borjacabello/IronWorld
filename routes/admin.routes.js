@@ -10,8 +10,6 @@ const {
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
 
-
-
 //* User management routes
 // GET "/admin/users" => renders the user list only for admin management purposes
 router.get("/users", isAdmin, async (req, res, next) => {
@@ -33,7 +31,7 @@ router.get("/users/:userId/edit", isAdmin, async (req, res, next) => {
   try {
     const userDetails = await User.findById(userId);
 
-    res.render("users/details.hbs", {
+    res.render("users/edit.hbs", {
       userDetails,
     });
   } catch (error) {
@@ -43,71 +41,158 @@ router.get("/users/:userId/edit", isAdmin, async (req, res, next) => {
 
 // POST "/admin/users/:userId/edit" => updates user parameters and redirects to user list
 router.post("/users/:userId/edit", isAdmin, async (req, res, next) => {
-    const {userId} = req.params;
+  const { userId } = req.params;
 
-    const {profileImage, username, age, email, role, links} = req.body
+  const { profileImage, username, age, email, role, links } = req.body;
 
-    const userToUpdate = {
-        profileImage,
-        username,
-        age,
-        email,
-        role,
-        links
-    }
+  const userToUpdate = {
+    profileImage,
+    username,
+    age,
+    email,
+    role,
+    links,
+  };
 
-    try {
-        await User.findByIdAndUpdate(userId, userToUpdate, {new: true})
+  try {
+    await User.findByIdAndUpdate(userId, userToUpdate, { new: true });
 
-        res.redirect("/admin/users")
-    } catch(error) {
-        next(error)
-    }
-})
+    res.redirect("/admin/users");
+  } catch (error) {
+    next(error);
+  }
+});
 
 // POST "/admin/users/:userId/delete" => deletes user from user list and redirects to user list
 router.post("/users/:userId/delete", isAdmin, async (req, res, next) => {
-    const {userId} = req.params
+  const { userId } = req.params;
 
-    try {
-        await User.findByIdAndDelete(userId)
+  try {
+    await User.findByIdAndDelete(userId);
 
-        res.redirect("/admin/users")
-    } catch(error) {
-        next(error)
-    }
-})
-
+    res.redirect("/admin/users");
+  } catch (error) {
+    next(error);
+  }
+});
 
 //* Publication management routes
 // GET "/admin/publications" => renders publication list for both moderator and admin
 router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
   try {
-    const publicationList = await Publication.find()
-
-    res.render("publications/list.hbs", {
-      publicationList
-    })
-  } catch(error) {
-    next(error)
+    const pendingList = await Publication.find();
+    
+    res.render("publications/pending/list.hbs", {
+      pendingList,
+    });
+  } catch (error) {
+    next(error);
   }
-})
+});
 
 // POST "/admin/publications/:publicationId/approval" => approves current publication to be added to the index page list
-router.post("/publications/:publicationId/approval", isModeratorOrAdmin, async (req, res, next) => {
-  const {publicationId} = req.params
-  
-  try {
-    // Changes boolean value "approved" to true, to use it after in index.hbs to see the publication
-    const publicationToApprove = await Publication.findByIdAndUpdate(publicationId, {approved: true}, {new: true})
-    console.log(publicationToApprove)
+router.post(
+  "/publications/:publicationId/approval",
+  isModeratorOrAdmin,
+  async (req, res, next) => {
+    const { publicationId } = req.params;
 
-    res.redirect("/")
+    try {
+      // Changes boolean value "approved" to true, to use it after in index.hbs to see the publication
+      const publicationToApprove = await Publication.findByIdAndUpdate(
+        publicationId,
+        { approved: true },
+        { new: true }
+      );
+      console.log(publicationToApprove);
 
-  } catch(error) {
-    next(error)
+      res.redirect("/");
+    } catch (error) {
+      next(error);
+    }
   }
-})
+);
+
+
+// // GET "/admin/publications/:publicationId/details" => renders publications details page to edit it
+// router.get("/publications/:publicationId/details", async (req, res, next) => {
+
+//   const { publicationId } = req.params
+// try {
+//   const publicationDetails = await Publication.findById(publicationId)
+//   .populate("comment")
+//   res.render("publications/pending/details.hbs")
+// } catch (error) {
+//   next(error)
+// }
+ 
+//   // Book.findOne({title: title})
+
+// })
+
+
+
+// GET "/admin/publications/:publicationId/edit" => renders publications details page to edit it
+router.get(
+  "/publications/:publicationId/edit",
+  isModeratorOrAdmin,
+  async (req, res, next) => {
+    const { publicationId } = req.params;
+    console.log(req.params);
+    try {
+      const publicationToEdit = await Publication.findById(
+        publicationId
+      ).populate("user");
+
+
+      res.render("publications/pending/edit.hbs", {
+        publicationToEdit: publicationToEdit,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// POST "/admin/publications/:publicationId/edit" => edit current publication and redirects to pending list
+router.post("/publications/:publicationId/edit", async (req, res, next) => {
+  const { publicationId } = req.params;
+  const { title, content, file, approved } = req.body;
+  console.log(req.body);
+
+  const publicationToUpdate = {
+    title,
+    content,
+    file,
+    approved,
+  };
+
+  try {
+    await Publication.findByIdAndUpdate(publicationId, publicationToUpdate, {
+      new: true,
+    });
+
+    res.redirect("/admin/publications");
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST "/admin/publications/:publicationId/delete" => delete selected publication and redirects to pending list
+router.post("/publications/:publicationId/delete", async (req, res, next) => {
+  const { publicationId } = req.params;
+  const { title, content, file, approved } = req.body;
+  console.log(req.body);
+
+  try {
+    await Publication.findByIdAndDelete(publicationId);
+
+    res.redirect("/admin/publications");
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 
 module.exports = router;

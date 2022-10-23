@@ -21,7 +21,12 @@ const publicationSchema = new mongoose.Schema(
     },
     approved: {
       type: Boolean,
+      enum: [true, false],
       default: false
+    },
+     comment: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Comment",
     }
   },
   {

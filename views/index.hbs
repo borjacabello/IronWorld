@@ -28,7 +28,21 @@
         <p>{{title}}</p>
         <p>{{content}}</p>
         <p>{{user.username}}</p>
+        
+        {{#each comment}}
+         {{!-- EL ARRAY ESTA VACIO --}}
+        <p>{{this}}</p>
+         {{/each}}
         {{!--<p>{{file}}</p>--}}
+        <div>
+
+  <form action="/user/{{_id}}/commentcreate" method="POST">
+    <input type="text" name="message">
+    <button>Coment</button>
+  </form>
+
+
+</div>
     {{/if}}
         </div>
     {{/each}}

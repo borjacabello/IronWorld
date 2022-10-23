@@ -12,8 +12,8 @@ const commentSchema = new mongoose.Schema(
       ref: "User",
     },
     publication: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Publication",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Publication",
     }
   },
   {

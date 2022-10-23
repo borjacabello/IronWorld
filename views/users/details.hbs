@@ -1,44 +1,7 @@
-<div class="col-10 d-flex flex-column align-items-center justify-content-start">
-    <h2>User details: {{userDetails.username}}</h2>
+<div>
 
-    {{#with userDetails}}
-    <form action="/admin/users/{{_id}}/edit" method="POST" class="bg-light">
-        <div>
-            <label for="profileImage" class="form-label">Profile Image:</label>
-            <input type="text" name="profileImage" value="{{profileImage}}" class="form-control">
-        </div>
-        
-        <div>
-            <label for="username" class="form-label">User Name:</label>
-            <input type="text" name="username" value="{{username}}" class="form-control">
-        </div>
-        
-        <div>
-            <label for="age" class="form-label">Age:</label>
-            <input type="number" name="age" value="{{age}}" class="form-control">
-        </div>
-        
-        <div>
-            <label for="email" class="form-label">Email</label>
-            <input type="text" name="email" value="{{email}}" class="form-control">
-        </div>
-        
-        <div>
-            <label for="role" class="form-label">Role:</label>
-            <input type="text" name="role" value="{{role}}" class="form-control">
-        </div>
-        
-        <div>
-            <label for="links" class="form-label">Links:</label>
-            <select name="links" multiple="true" class="form-select">
-            {{#each links}}
-                <option value="{{this._id}}">{{this}}</option>
-            {{/each}}
-            </select>
-        </div>
-        
-        <button class="btn btn-primary">Edit</button>
-    </form>
-    {{/with}}
-    
+    <h2>User Details</h2>
+
+
+
 </div>

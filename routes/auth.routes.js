@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/User.model");
 const bcrypt = require("bcryptjs");
 
-//* Authentication routes
+// * Authentication routes
 
 // * Sign Up routes
 // GET "/auth/signup" => Renders User Registration Form

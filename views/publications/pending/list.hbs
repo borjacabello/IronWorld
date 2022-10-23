@@ -1,7 +1,8 @@
 <div class="col-10 d-flex flex-column align-items-start justify-content-start">
     <h2>Publications list</h2>
+    
 
-    {{#each publicationList}}
+            {{#each pendingList}}
         <div class="d-flex flex-row justify-content-start">
             <p>{{title}}</p>
             <form action="/admin/publications/{{_id}}/approval" method="POST">
@@ -14,6 +15,8 @@
                 <button>Delete</button>
             </form>
         </div>
-    {{/each}}
+             {{/each}}
+
+    
     
 </div>

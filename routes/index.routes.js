@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
+const Comment = require("../models/Comment.model")
+
 
 
 /* GET home page */
@@ -8,7 +11,7 @@ router.get("/", async (req, res, next) => {
 
   try {
     const publications = await Publication.find().populate("user")
-
+    console.log(publications)
     res.render("index", {
       publications
     });
