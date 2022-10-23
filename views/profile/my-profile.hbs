@@ -1,10 +1,25 @@
 <div class="col-10 d-flex flex-column align-items-start justify-content-start">
 
+  <div>
+
     {{#with profileDetails}}
-    <h2>User Profile: {{username}}</h2>
-    <img src="{{profileImage}}" alt="profile-image" width="180px">
-    <p>Email: {{email}}</p>
-    <p>Age: {{age}}</p>
+      <h2>User Profile: {{username}}</h2>
+      <img src="{{profileImage}}" alt="profile-image" width="180px" />
+      <p>Email: {{email}}</p>
+      <p>Age: {{age}}</p>
     {{/with}}
 
+  </div>
+
+  <div>
+    <h4>Own Publications</h4>
+    {{#each publicationUserOnline}}
+
+      <h5>{{title}}</h5>
+      <p>{{createdAt}}</p>
+      <p>{{updatedAt}}</p>
+
+    {{/each}}
+
+  </div>
 </div>

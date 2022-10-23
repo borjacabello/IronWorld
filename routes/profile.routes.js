@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
+const Publication = require("../models/Publication.model");
 
 // Import middlewares
 const {
@@ -13,9 +14,15 @@ const {
 router.get("/", isUserLoggedIn, async (req, res, next) => {
   try {
     const userOnlineDetails = await User.findById(req.session.userOnline);
+    const publicationUserOnline = await Publication.find({user: userOnlineDetails}).populate("user")
+  
     res.render("profile/my-profile.hbs", {
       profileDetails: userOnlineDetails,
+      publicationUserOnline: publicationUserOnline
+
     });
+  
+
   } catch (error) {
     next(error);
   }
