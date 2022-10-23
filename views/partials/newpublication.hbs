@@ -1,8 +1,8 @@
 {{!-- Linkk to trigger modal--}}
-<a data-bs-toggle="modal" href="#myModal">New Publication</a>
+<a data-bs-toggle="modal" href="#newPublication">New Publication</a>
 
 {{!-- Modal --}}
-<div id="myModal" class="modal fade bg-dark" role="dialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div id="newPublication" class="modal fade bg-dark" role="dialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
 
     {{!-- Modal Content--}}
@@ -10,7 +10,7 @@
     {{!-- Header --}}
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Add a New Publication</h5>
-        <button type="button" class="close" data-dismiss="modal">
+        <button type="button" class="close" data-bs-dismiss="modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -32,13 +32,11 @@
             <input type="text" name="file" class="form-control" id="file">
         </div>
 
-        <button class="btn btn-primary">POST</button>
+        <br>
+        
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create Publication</button>
         </form>
-      </div>
-      {{!-- Footer --}}
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Create Publication</button>
       </div>
     </div>
   </div>
