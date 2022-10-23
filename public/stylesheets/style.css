@@ -3,7 +3,8 @@ body {
   margin: 5vh 2vw;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100vh;
-  width: 100vw;
+  width: 100vw; 
+  background-color: #57BBF5;
 }
 
 h1 {
@@ -18,7 +19,7 @@ h1 {
 }
 
 #nav-bar a {
-  color: #00b7ff;
+  color: #212353;
   text-decoration: none;
 }
 
@@ -27,9 +28,7 @@ h1 {
   margin: 0;
 }
 
-#news {
-  word-break: break-all
-}
+
 
 /*Home page render*/
 #publication {
@@ -43,6 +42,109 @@ h1 {
 
 #file {
   width: 50%
+}
+
+#iron-world {
+  color: #212353;
+}
+
+#news {
+  word-break: break-all;
+  width: 100%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+#comments-section {
+  width: 100%;
+  background-color: #C8E9FB;
+  margin: 0 0 0 5px;
+  border-radius: 5px;
+}
+
+#add-comment-box {
+  width: 100%;
+  padding: 10px;
+}
+
+#add-comment-box form {
+  width: 90%;
+  margin: 0 0 0 1vw;
+}
+
+#news-profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px
+}
+
+#news span {
+  font-weight: bolder;
+  color:dimgray
+}
+
+#new-title {
+  font-size: 18px;
+  font-weight: bold;
+  color:#212353
+}
+
+#news-items {
+  margin-left: 1vw;
+  width: 90%;
+}
+
+#news-items p {
+  margin: 0 0 5px 0
+}
+
+#new-content {
+  line-height: 14px;
+}
+
+#comments {
+  word-break: break-all;
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
+}
+
+#each-comment {
+  margin: 1px 0 2px 0;
+}
+
+#comments h2 {
+  font-size: 20px;
+}
+
+#comment-profile-image {
+  width: 25px;
+  height: 25px;
+  border-radius: 20px
+}
+
+#comment-details-box {
+  margin: 0 0 0 5px;
+  width: 100%
+}
+
+#comment-username {
+  margin: 0;
+  font-weight: bolder;
+}
+
+#comment-message {
+  margin: 0;
+  
+}
+
+.separator {
+  border: 1px solid black;
+  opacity: 0.1;
+  width: 95%;
+  margin: 0 0 1vh 0;
 }
 
 /*Sign up page render*/
