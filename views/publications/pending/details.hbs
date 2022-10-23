@@ -1,0 +1,20 @@
+<div class="col-10 d-flex flex-column align-items-start justify-content-start">
+
+    {{#with publicationDetails}}
+    <h3>{{title}}</h3>
+    <p>{{content}}</p>
+
+        <div class="d-flex flex-row justify-content-start">
+            
+            <a href="/user/publications/{{_id}}/edit">
+                <button>Edit</button>
+            </a>
+            <form action="/user/publications/{{_id}}/delete" method="POST">
+                <button>Delete</button>
+            </form>
+                <a href="/profile">
+                <button>Go back</button>
+                </a>
+                {{/with}}
+        </div>
+</div>

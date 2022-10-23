@@ -14,8 +14,9 @@
   <div>
     <h4>Own Publications</h4>
     {{#each publicationUserOnline}}
-
+    <a href="/profile/publications/{{_id}}/details">
       <h5>{{title}}</h5>
+    </a>
       <p>{{createdAt}}</p>
       <p>{{updatedAt}}</p>
 

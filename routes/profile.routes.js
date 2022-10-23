@@ -21,11 +21,49 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
       publicationUserOnline: publicationUserOnline
 
     });
+    console.log(publicationUserOnline)
   
 
   } catch (error) {
     next(error);
   }
 });
+
+// GET "/profile/publications/:publicationId/details" => renders the details of each own publication
+router.get("/publications/:publicationId/details", isUserLoggedIn, async (req, res, next) => {
+  const { publicationId } = req.params;
+
+  try {
+    const publicationDetails = await Publication.findById(publicationId).populate("user");
+
+    res.render("publications/pending/details.hbs", {
+      publicationDetails: publicationDetails,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+);
+
+// // POST "/admin/publications/:publicationId/details" => edit current publication and redirects to pending list
+// router.post("/publications/:publicationId/details", async (req, res, next) => {
+// const { publicationId } = req.params;
+// const { title, content, file, approved } = req.body;
+
+// const publicationToUpdate = {
+//   title,
+//   content,
+//   file,
+//   approved,
+// }
+
+// try {
+//   await Publication.findByIdAndUpdate(publicationId, publicationToUpdate, {new: true,});
+
+//   res.redirect("/admin/publications");
+// } catch (error) {
+//   next(error);
+// }
+// });
 
 module.exports = router;
