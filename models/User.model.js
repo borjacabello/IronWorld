@@ -31,18 +31,18 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "moderator", "user"],
       default: "user"
     },
-    links: {
-      type: [mongoose.Schema.Types.ObjectId],
+    links: [{
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Link"
-    },
-    friends: {
-      type: [mongoose.Schema.Types.ObjectId],
+    }],
+    friends: [{
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User"
-    },
-    publications: {
-      type: [mongoose.Schema.Types.ObjectId],
+    }],
+    publications: [{
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Publication"
-    }
+    }]
   },
   {   
     timestamps: true

@@ -127,7 +127,11 @@ h1 {
 
 #comment-details-box {
   margin: 0 0 0 5px;
-  width: 100%
+  width: 80%
+}
+
+#comment-details-edit {
+  width: 100%;
 }
 
 #comment-username {
@@ -137,7 +141,15 @@ h1 {
 
 #comment-message {
   margin: 0;
-  
+}
+
+.comment-area {
+  width: 85%;
+}
+
+#delete-comment button {
+  width: 7vw;
+  height: 4vh;
 }
 
 .separator {

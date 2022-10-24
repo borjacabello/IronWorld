@@ -12,9 +12,19 @@ router.get("/", async (req, res, next) => {
       .populate("user")
       .populate({ path: "comments", populate: { path: "user" } });
 
-    res.render("index", {
+    const userOnlineDetails = await User.findById(req.session.userOnline);
+    const userOnlineComments = await Comment.find({user: userOnlineDetails}).populate("user")
+
+    for (let comment of userOnlineComments) {
+      if (comment.user._id.toString() === req.session.userOnline._id) {
+        await Comment.findByIdAndUpdate(comment._id, {show: true}, {new: true})
+      }
+    }
+
+    res.render("index.hbs", {
       publications,
     });
+
   } catch (error) {
     next(error);
   }
@@ -34,6 +44,8 @@ router.use("/admin", adminRoutes);
 
 // User routes
 const userRoutes = require("./user.routes");
+const { config } = require("dotenv");
+const { setDriver } = require("mongoose");
 router.use("/user", userRoutes);
 
 // Export
