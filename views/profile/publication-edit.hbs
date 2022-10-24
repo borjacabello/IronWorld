@@ -1,0 +1,37 @@
+<div class="col-10 d-flex flex-column align-items-start justify-content-start">
+  {{#with ownPublicationToEdit}}
+
+    <form
+      action="/profile/publications/{{_id}}/edit"
+      method="POST"
+      class="bg-light"
+    >
+      <div>
+        <label for="title" class="form-label">Title: </label>
+        <input
+          type="text"
+          name="title"
+          value="{{title}}"
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <label for="content" class="form-label">Content:</label>
+        <input
+          type="text"
+          name="content"
+          value="{{content}}"
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <label for="file" class="form-label">File:</label>
+        <input type="text" name="file" value="{{file}}" class="form-control" />
+      </div>
+
+      <button class="btn btn-primary">Edit</button>
+    </form>
+  {{/with}}
+</div>
