@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
 const bcrypt = require("bcryptjs");
-
+const everythingIsOk = true
 // * Authentication routes
 
 // * Sign Up routes
@@ -14,12 +14,13 @@ router.get("/signup", (req, res, next) => {
 // POST "/auth/signup" => Retrieves new user info from signup.hbs and creates the profile in the DB
 router.post("/signup", async (req, res, next) => {
   const { username, age, email, password } = req.body;
-
+  
   // Validation 1: All the fields must not be empty
   if (username === "" || age === "" || email === "" || password === "") {
     res.render("auth/signup.hbs", {
       errorMessage: "All the fields must be completed",
     });
+    
     return;
   }
 
@@ -28,6 +29,7 @@ router.post("/signup", async (req, res, next) => {
     res.render("auth/signup.hbs", {
       errorMessage: "Username must contain at least 4 characters",
     });
+   
     return;
   }
 
@@ -38,6 +40,7 @@ router.post("/signup", async (req, res, next) => {
     res.render("auth/signup.hbs", {
       errorMessage: "Incorrect email format",
     });
+    
     return;
   }
 
@@ -49,6 +52,7 @@ router.post("/signup", async (req, res, next) => {
       errorMessage:
         "Password should have at least 8 characteres, an uppercase letter and a number",
     });
+    
     return;
   }
 
@@ -60,6 +64,7 @@ router.post("/signup", async (req, res, next) => {
       res.render("auth/signup.hbs", {
         errorMessage: "Email has been already registered in the website.",
       });
+      everythingIsOk = false
       return;
     }
 
@@ -69,6 +74,7 @@ router.post("/signup", async (req, res, next) => {
       res.render("auth/signup.hbs", {
         errorMessage: "Username has been already registered in the website.",
       });
+      everythingIsOk = false
       return;
     }
 
@@ -83,10 +89,11 @@ router.post("/signup", async (req, res, next) => {
       email: email,
       password: hashedPassword,
     };
-
+    
     await User.create(newUser);
-
+    
     res.redirect("/");
+    
   } catch (error) {
     next(error);
   }

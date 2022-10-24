@@ -21,7 +21,7 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
       publicationUserOnline: publicationUserOnline
 
     });
-    console.log(publicationUserOnline)
+
   
 
   } catch (error) {
@@ -35,7 +35,7 @@ router.get("/publications/:publicationId/details", isUserLoggedIn, async (req, r
 
   try {
     const publicationDetails = await Publication.findById(publicationId).populate("user");
-
+console.log(publicationDetails)
     res.render("publications/pending/details.hbs", {
       publicationDetails: publicationDetails,
     });
@@ -45,6 +45,22 @@ router.get("/publications/:publicationId/details", isUserLoggedIn, async (req, r
 }
 );
 
+// POST "/profile/publications/:publicationId/delete" => deletes the current own publication
+router.post("/publications/:publicationId/delete", isUserLoggedIn, async (req, res, next)=> {
+
+  const {publicationId} = req.params
+  console.log(publicationId)
+  try {
+    const x = await Publication.findByIdAndDelete(publicationId)
+    console.log(x)
+    res.redirect("/profile")
+  } catch (error) {
+    next(error)
+  }
+
+
+
+})
 // // POST "/admin/publications/:publicationId/details" => edit current publication and redirects to pending list
 // router.post("/publications/:publicationId/details", async (req, res, next) => {
 // const { publicationId } = req.params;
