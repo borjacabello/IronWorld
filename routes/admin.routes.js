@@ -10,7 +10,7 @@ const {
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
 
-//* User management routes
+// ********************* User management routes ***********************
 // GET "/admin/users" => renders the user list only for admin management purposes
 router.get("/users", isAdmin, async (req, res, next) => {
   try {
@@ -76,7 +76,7 @@ router.post("/users/:userId/delete", isAdmin, async (req, res, next) => {
   }
 });
 
-//* Publication management routes
+// ********************* Publication management routes ******************
 // GET "/admin/publications" => renders publication list for both moderator and admin
 router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
   try {
@@ -99,8 +99,10 @@ router.post(
 
     try {
       // Changes boolean value "approved" to true, to use it after in index.hbs to see the publication
-      const publicationToApprove = await Publication.findByIdAndUpdate(publicationId, {approved: true},
-        {new: true}
+      const publicationToApprove = await Publication.findByIdAndUpdate(
+        publicationId,
+        { approved: true },
+        { new: true }
       );
 
       res.redirect("/");
@@ -110,16 +112,17 @@ router.post(
   }
 );
 
-
-
-
-
 // GET "/admin/publications/:publicationId/edit" => renders publications details page to edit it
-router.get("/publications/:publicationId/edit", isModeratorOrAdmin, async (req, res, next) => {
+router.get(
+  "/publications/:publicationId/edit",
+  isModeratorOrAdmin,
+  async (req, res, next) => {
     const { publicationId } = req.params;
 
     try {
-      const publicationToEdit = await Publication.findById(publicationId).populate("user");
+      const publicationToEdit = await Publication.findById(
+        publicationId
+      ).populate("user");
 
       res.render("publications/pending/edit.hbs", {
         publicationToEdit: publicationToEdit,
@@ -134,16 +137,18 @@ router.get("/publications/:publicationId/edit", isModeratorOrAdmin, async (req, 
 router.post("/publications/:publicationId/edit", async (req, res, next) => {
   const { publicationId } = req.params;
   const { title, content, file, approved } = req.body;
-  
+
   const publicationToUpdate = {
     title,
     content,
     file,
     approved,
-  }
+  };
 
   try {
-    await Publication.findByIdAndUpdate(publicationId, publicationToUpdate, {new: true,});
+    await Publication.findByIdAndUpdate(publicationId, publicationToUpdate, {
+      new: true,
+    });
 
     res.redirect("/admin/publications");
   } catch (error) {
@@ -154,7 +159,7 @@ router.post("/publications/:publicationId/edit", async (req, res, next) => {
 // POST "/admin/publications/:publicationId/delete" => delete selected publication and redirects to pending list
 router.post("/publications/:publicationId/delete", async (req, res, next) => {
   const { publicationId } = req.params;
-  
+
   try {
     await Publication.findByIdAndDelete(publicationId);
 
@@ -163,6 +168,5 @@ router.post("/publications/:publicationId/delete", async (req, res, next) => {
     next(error);
   }
 });
-
 
 module.exports = router;

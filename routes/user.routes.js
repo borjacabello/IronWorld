@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
 const Comment = require("../models/Comment.model");
+const uploader = require("../middlewares/cloudinary.js")
 
 // Import middlewares
 const {
@@ -14,13 +15,13 @@ const {
 
 //* Publication and comment creation routes
 // POST "/user/publication/create" => creates a new publication for a user in the DB
-router.post("/publication/create", isUserLoggedIn, async (req, res, next) => {
-  const { title, content, file, comment } = req.body;
+router.post("/publication/create", isUserLoggedIn, uploader.single("file"), async (req, res, next) => {
+  const {title, content} = req.body;
 
   const newPublication = {
     title,
     content,
-    file,
+    file: req.file.path,
     user: req.session.userOnline,
     //user: res.locals.currentUser also works
   };

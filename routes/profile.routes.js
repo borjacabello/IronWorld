@@ -30,15 +30,11 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
 // *********************** OWN PUBLICATIONS ROUTES *************************************
 // GET "/profile/publications/:publicationId/details" => renders the details of each own publication
 router.get(
-  "/publications/:publicationId/details",
-  isUserLoggedIn,
-  async (req, res, next) => {
+  "/publications/:publicationId/details", isUserLoggedIn, async (req, res, next) => {
     const { publicationId } = req.params;
 
     try {
-      const publicationDetails = await Publication.findById(
-        publicationId
-      ).populate("user");
+      const publicationDetails = await Publication.findById(publicationId).populate("user");
       console.log(publicationDetails);
       res.render("publications/pending/details.hbs", {
         publicationDetails: publicationDetails,

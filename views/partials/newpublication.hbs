@@ -16,7 +16,7 @@
       </div>
       {{!-- Body --}}
       <div class="modal-body">
-        <form id ="publication" action="/user/publication/create" method="POST" class="bg-light">
+        <form id ="publication" action="/user/publication/create" method="POST" class="bg-light" enctype="multipart/form-data">
         <div>
             <label for="title" class="form-label">Title</label>
             <input type="text" name="title" class="form-control" id = "title">
@@ -29,7 +29,7 @@
         
         <div>
             <label for="file" class="form-label">Select a File:</label>
-            <input type="text" name="file" class="form-control" id="file">
+            <input type="file" name="file" class="form-control" id="file">
         </div>
 
         <br>

@@ -20,21 +20,29 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Auth routes
+// * Auth routes
 const authRoutes = require("./auth.routes");
 router.use("/auth", authRoutes);
 
-// Profile routes
+// * Profile routes
 const profileRoutes = require("./profile.routes");
 router.use("/profile", profileRoutes);
 
-// Admin routes
+// * Admin routes
 const adminRoutes = require("./admin.routes");
 router.use("/admin", adminRoutes);
 
-// User routes
+// * User routes
 const userRoutes = require("./user.routes");
 router.use("/user", userRoutes);
 
-// Export
+// * Indeed routes
+const indeedRoutes = require("./indeed.routes");
+router.use("/indeed", indeedRoutes);
+
+// * Discord routes
+const discordRoutes = require("./discord.routes");
+router.use("/discord", discordRoutes);
+
+// * Export
 module.exports = router;
