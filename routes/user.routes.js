@@ -11,6 +11,7 @@ const {
   isAdmin,
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
+const { trusted } = require("mongoose");
 
 
 //* Publication and comment creation routes
@@ -52,7 +53,7 @@ router.post("/:publicationId/comment/create", isUserLoggedIn, async (req, res, n
     try {
       const newComment = {
         message,
-        user: req.session.userOnline
+        user: req.session.userOnline,
         //publication: publicationToComment
       }
 
@@ -66,6 +67,40 @@ router.post("/:publicationId/comment/create", isUserLoggedIn, async (req, res, n
     }
   }
 );
+
+// GET "/users/:commentId/edit" => renders comment details page to edit comment information
+router.get("/:commentId/edit", isUserLoggedIn, async (req, res, next) => {
+  const { commentId } = req.params;
+
+  try {
+    const commentDetails = await Comment.findById(commentId);
+
+    await Comment.findByIdAndUpdate(commentDetails, {edited: true}, {new: true})
+
+    res.redirect("/")
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+// POST "/users/:commentId/edit" => updates comment message and renders it
+router.post("/:commentId/edit", isUserLoggedIn, async (req, res, next) => {
+  const { commentId } = req.params;
+  const { message } = req.body
+
+  try {
+    const commentToUpdate = await Comment.findById(commentId);
+
+    await Comment.findByIdAndUpdate(commentToUpdate, {edited: false, message: message}, {new: true})
+
+    res.redirect("/")
+
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 

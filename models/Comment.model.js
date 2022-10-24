@@ -10,6 +10,16 @@ const commentSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+    edited: {
+      type: Boolean,
+      enum: [true, false],
+      default: false
+    },
+    show: {
+      type: Boolean,
+      enum: [true, false],
+      default: true
     }
   },
   {

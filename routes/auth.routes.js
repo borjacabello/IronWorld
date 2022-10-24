@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
 const bcrypt = require("bcryptjs");
-const everythingIsOk = true
+const Comment = require("../models/Comment.model");
+
 // * Authentication routes
 
 // * Sign Up routes
 // GET "/auth/signup" => Renders User Registration Form
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup.hbs");
-});
+//router.get("/signup", (req, res, next) => {
+//  res.render("auth/signop.hbs");
+//});
 
 // POST "/auth/signup" => Retrieves new user info from signup.hbs and creates the profile in the DB
 router.post("/signup", async (req, res, next) => {
@@ -17,7 +18,7 @@ router.post("/signup", async (req, res, next) => {
   
   // Validation 1: All the fields must not be empty
   if (username === "" || age === "" || email === "" || password === "") {
-    res.render("auth/signup.hbs", {
+    res.render("partials/signup.hbs", {
       errorMessage: "All the fields must be completed",
     });
     
@@ -139,11 +140,12 @@ router.post("/login", async (req, res, next) => {
   
       // Create an active user session
       req.session.userOnline = foundUser;
-  
+
       // Verifying that the session has been successfully created
-      req.session.save(() => {
+      req.session.save( () =>  {
         res.redirect("/");
       });
+
     } catch (error) {
       next(error);
     }
@@ -152,12 +154,25 @@ router.post("/login", async (req, res, next) => {
 
 //* Log Out route
 // GET "/auth/logout" => closes the current user session (destroy)
-router.get("/logout", (req, res, next) => {
+router.get("/logout", async (req, res, next) => {
+
+  try {
+  const userOnlineDetails = await User.findById(req.session.userOnline);
+  const userOnlineComments = await Comment.find({user: userOnlineDetails}).populate("user")
+
+  for (let comment of userOnlineComments) {
+    if (comment.user._id.toString() === req.session.userOnline._id) {
+      await Comment.findByIdAndUpdate(comment._id, {show: false}, {new: true})
+    }
+  }
 
   req.session.destroy(() => {
     res.redirect("/")
   })
 
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router;

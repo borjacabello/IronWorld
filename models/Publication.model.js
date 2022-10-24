@@ -24,10 +24,10 @@ const publicationSchema = new mongoose.Schema(
       enum: [true, false],
       default: false
     },
-    comments: {
-      type: [mongoose.Schema.Types.ObjectId],
+    comments: [{
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Comment"
-    }
+    }]
   },
   {
     timestamps: true,
