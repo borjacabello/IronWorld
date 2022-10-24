@@ -103,5 +103,20 @@ router.post("/:commentId/edit", isUserLoggedIn, async (req, res, next) => {
 });
 
 
+// POST "/users/:commentId/edit" => updates comment message and renders it
+router.post("/:commentId/delete", isUserLoggedIn, async (req, res, next) => {
+  const { commentId } = req.params;
+
+  try {
+    await Comment.findByIdAndDelete(commentId);
+
+    res.redirect("/")
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 module.exports = router;
