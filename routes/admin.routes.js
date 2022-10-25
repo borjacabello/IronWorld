@@ -162,13 +162,13 @@ router.get(
 // POST "/admin/publications/:publicationId/edit" => edit current publication and redirects to pending list
 router.post("/publications/:publicationId/edit", uploader.single("file"), async (req, res, next) => {
   const { publicationId } = req.params;
-  const { title, content, file, approved } = req.body;
+  const { title, content } = req.body;
 
   const publicationToUpdate = {
     title,
     content,
-    file,
-    approved,
+    file: req.file?.path,
+    
   };
 
   try {
