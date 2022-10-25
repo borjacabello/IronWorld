@@ -1,10 +1,10 @@
-<div class="col-10 d-flex flex-column align-items-start justify-content-start">
+<div class="col-10 d-flex flex-column align-items-start justify-content-start"> 
     
     <h2>Publication details: {{publicationToEdit.title}}</h2>
     <p>User Name:{{publicationToEdit.user.username}}</p>
 
     {{#with publicationToEdit}}
-    <form action="/admin/publications/{{_id}}/edit" method="POST" class="bg-light">
+    <form action="/admin/publications/{{_id}}/edit" method="POST" class="bg-light" enctype="multipart/form-data">
         <div>
             <label for="title" class="form-label">Title: </label>
             <input type="text" name="title" value="{{title}}" class="form-control">
