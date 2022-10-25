@@ -11,25 +11,43 @@ const {
   isAdmin,
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
-const { trusted } = require("mongoose");
 
 //* Publication and comment creation routes
+
+// GET "/user/publication/create" => renders a form for create a new publication
+router.get("/publication/create", isUserLoggedIn, (req, res, next) => {
+  res.render("publications/new-publication.hbs");
+});
+
 // POST "/user/publication/create" => creates a new publication for a user in the DB
 router.post(
   "/publication/create",
   isUserLoggedIn,
   uploader.single("file"),
   async (req, res, next) => {
+
     const { title, content } = req.body;
 
-    const newPublication = {
-      title,
-      content,
-      file: req.file.path,
-      user: req.session.userOnline,
-    };
+    // Validation 1: fields mustn't be empty
+    if (title === "" || content === "") {
+      res.render("publications/new-publication.hbs", {
+        errorMessage: "All the fields must be completed",
+      });
+      return;
+    }
 
     try {
+      // let imageUrl;
+      // if (req.file !== undefined) {
+      //   imageUrl = req.file.path;
+      // }
+
+      const newPublication = {
+        title: title,
+        content: content,
+        file: req.file?.path, // "?" if req.file is undefined, takes default value in the model
+        user: req.session.userOnline,
+      };
       await Publication.create(newPublication);
 
       res.redirect("/");

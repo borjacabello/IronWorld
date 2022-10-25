@@ -36,7 +36,7 @@ router.get(
     try {
       const publicationDetails = await Publication.findById(publicationId).populate("user");
       console.log(publicationDetails);
-      res.render("publications/pending/details.hbs", {
+      res.render("profile/publication-details.hbs", {
         publicationDetails: publicationDetails,
       });
     } catch (error) {

@@ -1,7 +1,9 @@
-<div class="col-10 d-flex flex-column align-items-start justify-content-start">
-    <h2>Publications list</h2>
+{{! *************** PENDING LIST *************** }}
+
+<div class="col-5 d-flex flex-column align-items-start justify-content-start">
+    <h2>PENDING</h2>
     
-    {{!-- Display approve, edit and delete buttons in the publications list --}}
+    {{!-- Display pending, edit and delete buttons in the publications list --}}
     {{#each pendingList}}
         <div class="d-flex flex-row justify-content-start">
             <p>{{title}}</p>
@@ -16,4 +18,26 @@
             </form>
         </div>
     {{/each}}
+</div>
+
+{{! *************** APPROVED LIST *************** }}
+
+<div class="col-5 d-flex flex-column align-items-start justify-content-start">
+  <h2>APPROVED</h2>
+
+  {{! Display approved, edit and delete buttons in the publications list }}
+  {{#each approvedList}}
+    <div class="d-flex flex-row justify-content-start">
+      <p>{{title}}</p>
+      <form action="/admin/publications/{{_id}}/cancel" method="POST">
+        <button>Cancel</button>
+      </form>
+      <a href="/admin/publications/{{_id}}/edit">
+        <button>Edit</button>
+      </a>
+      <form action="/admin/publications/{{_id}}/delete" method="POST">
+        <button>Delete</button>
+      </form>
+    </div>
+  {{/each}}
 </div>

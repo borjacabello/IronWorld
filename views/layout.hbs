@@ -24,7 +24,7 @@
          {{#if isUserActive}}
             <a href="/profile">Profile</a>
             {{!-- New publication partial: <a></a> to new publication and modal with form to send new publication information --}}
-            {{>newpublication}}
+            <a href="/user/publication/create">New Publication</a>
             {{#if isAdminOrModeratorOn}}
                <a href="/admin/publications">Publications List</a>
                {{#if isAdminOn}}

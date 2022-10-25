@@ -1,0 +1,29 @@
+       
+   <div class="col-10 d-flex flex-column align-items-start justify-content-start">
+
+            <h2>New Publication</h2>
+       
+        <form id ="publication" action="/user/publication/create" method="POST" class="bg-light" enctype="multipart/form-data">
+        <div>
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id = "title">
+        </div>
+        
+        <div>
+            <label for="content" class="form-label">Description</label>
+            <input name="content" class="form-control" placeholder="What's happening?" rows="3">
+        </div>
+        
+        <div>
+            <label for="file" class="form-label">Select a File:</label>
+            <input type="file" name="file" class="form-control" id="file">
+        </div>
+
+        <br>
+
+        <p style="color: rgb(126, 16, 16);">{{errorMessage}}</p>
+        <button type="submit" class="btn btn-primary">Create Publication</button>
+        <a href="/"><button type="button" class="btn btn-secondary">Go home</button></a>
+        </form>
+
+    </div>
