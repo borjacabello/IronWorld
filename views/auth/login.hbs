@@ -1,16 +1,18 @@
-<div id="log-in-page" class="col-10 d-flex flex-column align-items-center justify-content-center">
-   <h2>Log In</h2>
+<div id="sign-up-page" class="col-10 d-flex flex-column align-items-center justify-content-center">
+  <h2 class="mb-3">LogIn</h2>
 
-   <form action="/auth/login" method="POST" class="d-flex flex-column align-items-center justify-content-around bg-light">
-      <label for="email">Email</label>
-      <input type="text" name="email">
-      
-      <label for="password">Password</label>
-      <input type="password" name="password">
-      
-      <p style="color: red">{{errorMessage}}</p>
-      
-      <button>Log In</button>
-      
-   </form>
+<form action="/auth/login" method="POST" enctype="multipart/form-data">
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email"id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password"class="form-control" id="exampleInputPassword1">
+  </div>
+  <p style="color: red">{{errorMessage}}</p>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 </div>
