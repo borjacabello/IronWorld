@@ -14,6 +14,7 @@ const publicationSchema = new mongoose.Schema(
     },
     file: {
       type: String,
+      default: "https://www.esade.edu/sites/default/files/styles/contenido_generico_v4/public/pr_assets/contenido_generico_v04_items/image/46887/782041/img_code_46887_782041.jpg"
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

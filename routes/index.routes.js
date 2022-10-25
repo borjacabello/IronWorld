@@ -65,13 +65,7 @@ router.use("/admin", adminRoutes);
 
 // * User routes
 const userRoutes = require("./user.routes");
-const { config } = require("dotenv");
-const { setDriver } = require("mongoose");
 router.use("/user", userRoutes);
-
-// * Indeed routes
-const indeedRoutes = require("./indeed.routes");
-router.use("/indeed", indeedRoutes);
 
 // * Discord routes
 const discordRoutes = require("./discord.routes");
