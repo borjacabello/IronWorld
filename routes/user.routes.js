@@ -25,7 +25,6 @@ router.post(
   isUserLoggedIn,
   uploader.single("file"),
   async (req, res, next) => {
-
     const { title, content } = req.body;
 
     // Validation 1: fields mustn't be empty
@@ -68,22 +67,31 @@ router.get(
     try {
       // Publication details
       const detailedPublication = await Publication.findById(publicationId)
-        .populate("user", "username profileImage" )
+        .populate("user", "username profileImage role")
         .populate({ path: "comments", populate: { path: "user" } });
 
-      
-      const clonedPublication = JSON.parse(JSON.stringify(detailedPublication))
+      const clonedPublication = JSON.parse(JSON.stringify(detailedPublication));
 
-      clonedPublication.comments.forEach(eachComment => {
-        if (eachComment.user._id === req.session.userOnline._id) {
-          eachComment.isOwner = true
+      clonedPublication.comments.forEach((eachComment) => {
+        if (
+          req.session.userOnline.role === "admin" ||
+          req.session.userOnline.role === "moderator"
+        ) {
+          eachComment.isOwner = true;
         }
-      })
 
-      res.render("publications/main-details.hbs", {
-        clonedPublication
+        if (
+          req.session.userOnline.role !== "admin" &&
+          req.session.userOnline.role !== "moderator" &&
+          eachComment.user._id === req.session.userOnline._id
+        ) {
+          eachComment.isOwner = true;
+        }
       });
 
+      res.render("publications/main-details.hbs", {
+        clonedPublication,
+      });
     } catch (error) {
       next(error);
     }
