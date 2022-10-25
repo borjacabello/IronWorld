@@ -41,18 +41,19 @@ router.get("/users/:userId/edit", isAdmin, async (req, res, next) => {
 });
 
 // POST "/admin/users/:userId/edit" => updates user parameters and redirects to user list
-router.post("/users/:userId/edit", isAdmin, async (req, res, next) => {
+router.post("/users/:userId/edit", isAdmin, uploader.single("profileImage"), async (req, res, next) => {
   const { userId } = req.params;
 
-  const { profileImage, username, age, email, role, links } = req.body;
+  const {username, age, email, role, links } = req.body;
 
   const userToUpdate = {
-    profileImage,
-    username,
-    age,
-    email,
-    role,
-    links,
+    
+    username: username,
+    email: email,
+    age: age,
+    role: role,
+    profileImage: req.profileImage?.path,
+    links: links,
   };
 
   try {

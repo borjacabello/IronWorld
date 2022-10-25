@@ -3,32 +3,42 @@
 
     {{!-- Renders user details info in inputs to be able to edit them --}}
     {{#with userDetails}}
-    <form action="/admin/users/{{_id}}/edit" method="POST" class="bg-light">
-        <div>
-            <label for="profileImage" class="form-label">Profile Image:</label>
-            <input type="text" name="profileImage" value="{{profileImage}}" class="form-control">
-        </div>
+    <form action="/admin/users/{{_id}}/edit" method="POST" class="bg-light" enctype="multipart/form-data">
+        
         
         <div>
             <label for="username" class="form-label">User Name:</label>
             <input type="text" name="username" value="{{username}}" class="form-control">
         </div>
         
+                <div>
+            <label for="email" class="form-label">Email</label>
+            <input type="text" name="email" value="{{email}}" class="form-control">
+        </div>
+
         <div>
             <label for="age" class="form-label">Age:</label>
             <input type="number" name="age" value="{{age}}" class="form-control">
         </div>
         
-        <div>
-            <label for="email" class="form-label">Email</label>
-            <input type="text" name="email" value="{{email}}" class="form-control">
-        </div>
+
         
         <div>
             <label for="role" class="form-label">Role:</label>
-            <input type="text" name="role" value="{{role}}" class="form-control">
+            <select name="role" multiple="true" class="form-select">
+            
+        <option value="user">user</option>
+        <option value="moderator">moderator</option>
+        <option value="admin">admin</option>
+          
+            </select>
         </div>
         
+        <div>
+            <label for="profileImage" class="form-label">Profile Image:</label>
+            <input type="file" name="profileImage" value="{{profileImage}}" class="form-control">
+        </div>
+
         <div>
             <label for="links" class="form-label">Links:</label>
             <select name="links" multiple="true" class="form-select">

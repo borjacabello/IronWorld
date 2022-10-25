@@ -76,7 +76,7 @@ router.post("/signup", uploader.single("profileImage"), async (req, res, next) =
       res.render("auth/signup.hbs", {
         errorMessage: "Username has been already registered in the website.",
       });
-      everythingIsOk = false
+      
       return;
     }
 
@@ -87,9 +87,9 @@ router.post("/signup", uploader.single("profileImage"), async (req, res, next) =
     // Add new user to the DB
     const newUser = {
       username: username,
-      age: age,
       email: email,
       password: hashedPassword,
+      age: age,
       profileImage: req.profileImage?.path
     };
     
@@ -144,7 +144,7 @@ router.post("/login", async (req, res, next) => {
       req.session.userOnline = foundUser;
 
       // Verifying that the session has been successfully created
-      req.session.save( async () =>  {
+      req.session.save(  () =>  {
         res.redirect("/");
       });
 
