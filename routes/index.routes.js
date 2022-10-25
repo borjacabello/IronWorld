@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
 const Comment = require("../models/Comment.model");
+const fetch = require('node-fetch');
 
 /* GET home page */
 router.get("/", async (req, res, next) => {
@@ -12,6 +13,8 @@ router.get("/", async (req, res, next) => {
       .populate("user")
       .populate({ path: "comments", populate: { path: "user" } });
 
+
+    // Comments
     const userOnlineDetails = await User.findById(req.session.userOnline);
     const userOnlineComments = await Comment.find({user: userOnlineDetails}).populate("user")
 
@@ -21,8 +24,26 @@ router.get("/", async (req, res, next) => {
       }
     }
 
+    // API jobs
+    const url = 'https://tech-job-search-api.p.rapidapi.com/';
+    const options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': '629f5312dbmsha3e0cb11c09ab80p105c68jsnf9ebe00c013a',
+        'X-RapidAPI-Host': 'tech-job-search-api.p.rapidapi.com'
+    }
+    };
+
+    const response = await fetch(url, options)
+    const jsonResponse = await response.json()
+
+    console.log(jsonResponse);
+
+    let jobOffers = jsonResponse.slice(0, 10)
+
     res.render("index.hbs", {
       publications,
+      jobOffers
     });
 
   } catch (error) {
