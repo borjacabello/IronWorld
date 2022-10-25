@@ -54,7 +54,10 @@
                                 {{else}}
                                     <div class="d-flex flex-row justify-content-between">
                                         <div class="d-flex flex-column comment-area">
-                                            <p id ="comment-username">{{user.username}}</p>
+                                            <div id="comment-header" class="d-flex flex-row justify-content-start align-items-center">
+                                                <p id ="comment-username">{{user.username}}</p>
+                                                <p class="date comment-date">created on {{createdAt}}</p>
+                                            </div>
                                             <p id ="comment-message">{{message}}</p>
                                         </div>
                                     <form action="/user/{{../_id}}/{{_id}}/edit" method="GET" >

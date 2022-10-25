@@ -70,9 +70,18 @@ router.get(
         .populate("user", "username profileImage role")
         .populate({ path: "comments", populate: { path: "user" } });
 
-      const clonedPublication = JSON.parse(JSON.stringify(detailedPublication));
+      const clonedPublication = JSON.parse(JSON.stringify(detailedPublication))
 
-      clonedPublication.comments.forEach((eachComment) => {
+      clonedPublication.comments.sort( (a, b) => new Date(b.createdAt) - new Date(a.createdAt) );
+      
+      clonedPublication.comments.forEach(eachComment => {
+        eachComment.createdAt = new Date(eachComment.createdAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
+        eachComment.updatedAt = new Date(eachComment.updatedAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
+      })
+      
+      clonedPublication.comments.sort( (a, b) => new Date(b.createdAt) - new Date(a.createdAt) );
+
+      clonedPublication.comments.forEach(eachComment => {
         if (
           req.session.userOnline.role === "admin" ||
           req.session.userOnline.role === "moderator"

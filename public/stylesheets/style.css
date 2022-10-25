@@ -170,6 +170,20 @@ h1 {
   height: 4vh;
 }
 
+.date {
+  font-size: 11px
+}
+
+.comment-date {
+  margin: 0 0 0 5px;
+  color: black;
+  opacity: 0.5
+}
+
+#comment-header {
+  width: 100%;
+}
+
 .separator {
   border: 1px solid black;
   opacity: 0.1;
