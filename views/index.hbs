@@ -1,77 +1,23 @@
 <div class="col-7 d-flex flex-column align-items-start justify-content-start">
     <h1 id = "iron-world">IronWorld</h1>
 
-    {{!-- Let publications in the DB to be shown in Home page if approved === true --}}
-   
+    {{!-- Let publications in the DB to be shown in Home page if approved --}}
     {{#each publications}}
         {{#if approved}}
-            <div id="news" class="d-flex flex-row justify-content-start">
-                <img id="news-profile-image" src="{{user.profileImage}}" alt="profile-image">
-                <div id = "news-items" class="d-flex flex-column">
+            <div class="news" class="d-flex flex-row justify-content-start">
+                <a id="new-details-link" href="/user/{{_id}}/details" class="d-flex flex-row">
+                <img class="news-profile-image" src="{{user.profileImage}}" alt="profile-image">
+                <div class="news-items d-flex flex-column">
                     <p><span>{{user.username}}</span></p>
                     <div class="separator"></div>
-                    <div id = "new-content"class="d-flex flex-column">
-                        <p id="new-title">{{title}}</p>
+                    <div class="new-content d-flex flex-column">
+                        <p class="new-title">{{title}}</p>
                         <p>{{content}}</p>
                         <img src="{{file}}" alt="file" width="170px">
                     </div>
                 </div>
+                </a>
             </div>
-            {{#if ../isUserActive}}
-            <div id = "comments-section" class="d-flex flex-column">
-                <div id="add-comment-box" class="d-flex flex-row align-items-center">
-                    <img id="news-profile-image" src="{{user.profileImage}}" alt="profile-image">
-                    <form action="/user/{{_id}}/comment/create" method="POST" class="d-flex">
-                        <label for="message" class="form-label"></label>
-                        <input type="text" name="message" class="form-control" placeholder="Add a comment...">
-                        <button class ="btn btn-success">Comment</button>
-                    </form>
-                </div>
-                
-                <div id = "comments">
-                    <h2>Comments:</h2>
-                    {{#each comments}}
-                        <div id = "each-comment" class="d-flex flex-row align-items-center">
-                            <img id="comment-profile-image" src="{{user.profileImage}}" alt="profile-image">
-                            <div id ="comment-details-box">
-                            
-                                {{#if edited}}
-                                    <form id = "comment-details-edit" action="/user/{{_id}}/edit" method="POST" class="d-flex flex-row justify-content-between">
-                                        <div class="d-flex flex-column comment-area">
-                                            <p id ="comment-username">{{user.username}}</p>
-                                            <input type="text" name="message" value="{{message}}" class="form-control">
-                                        </div>
-                                        <button class="btn btn-outline-secondary">Edit</button>
-                                    </form>
-                                
-                                {{else}}
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="d-flex flex-column comment-area">
-                                            <p id ="comment-username">{{user.username}}</p>
-                                            <p id ="comment-message">{{message}}</p>
-                                        </div>
-                                    {{#if show}}
-                                    <form action="/user/{{_id}}/edit" method="GET">
-                                        <button class="btn btn-outline-secondary">Edit</button>
-                                    </form>
-                                    {{/if}}
-                                    </div>
-                                
-                                {{/if}}
-                            
-                            </div>
-                            {{#if show}}
-                            <form id="delete-comment" action="/user/{{_id}}/delete" method="POST">
-                                <button class="btn btn-outline-danger">Delete</button>
-                            </form>
-                            {{/if}}
-                        </div>
-                                
-                        <div class="separator"></div>
-                    {{/each}}
-                </div>
-            </div>
-            {{/if}}
         {{/if}}
     {{/each}}
 </div>

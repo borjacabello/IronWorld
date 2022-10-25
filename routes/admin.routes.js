@@ -10,7 +10,7 @@ const {
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
 
-// ********************* User management routes ***********************
+// *User management routes
 // GET "/admin/users" => renders the user list only for admin management purposes
 router.get("/users", isAdmin, async (req, res, next) => {
   try {
@@ -76,7 +76,7 @@ router.post("/users/:userId/delete", isAdmin, async (req, res, next) => {
   }
 });
 
-// ********************* Publication management routes ******************
+// *Publication management routes
 // GET "/admin/publications" => renders publication list for both moderator and admin
 router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
   try {

@@ -143,15 +143,6 @@ router.post("/login", async (req, res, next) => {
 
       // Verifying that the session has been successfully created
       req.session.save( async () =>  {
-        const userOnlineDetails = await User.findById(req.session.userOnline);
-        const userOnlineComments = await Comment.find({user: userOnlineDetails}).populate("user")
-
-        for (let comment of userOnlineComments) {
-          if (comment.user._id.toString() === req.session.userOnline._id) {
-            await Comment.findByIdAndUpdate(comment._id, {show: true}, {new: true})
-          }
-        }
-
         res.redirect("/");
       });
 
@@ -166,15 +157,6 @@ router.post("/login", async (req, res, next) => {
 router.get("/logout", async (req, res, next) => {
 
   try {
-  const userOnlineDetails = await User.findById(req.session.userOnline);
-  const userOnlineComments = await Comment.find({user: userOnlineDetails}).populate("user")
-
-  for (let comment of userOnlineComments) {
-    if (comment.user._id.toString() === req.session.userOnline._id) {
-      await Comment.findByIdAndUpdate(comment._id, {show: false}, {new: true})
-    }
-  }
-
   req.session.destroy(() => {
     res.redirect("/")
   })

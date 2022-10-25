@@ -15,11 +15,6 @@ const commentSchema = new mongoose.Schema(
       type: Boolean,
       enum: [true, false],
       default: false
-    },
-    show: {
-      type: Boolean,
-      enum: [true, false],
-      default: true
     }
   },
   {
