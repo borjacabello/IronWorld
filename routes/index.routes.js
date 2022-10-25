@@ -67,9 +67,9 @@ router.use("/admin", adminRoutes);
 const userRoutes = require("./user.routes");
 router.use("/user", userRoutes);
 
-// * Discord routes
-const discordRoutes = require("./discord.routes");
-router.use("/discord", discordRoutes);
+// // * Discord routes
+// const discordRoutes = require("./discord.routes");
+// router.use("/discord", discordRoutes);
 
 // * Export
 module.exports = router;

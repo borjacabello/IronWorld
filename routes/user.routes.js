@@ -25,8 +25,9 @@ router.post(
   isUserLoggedIn,
   uploader.single("file"),
   async (req, res, next) => {
-    const { title, content} = req.body;
-    let imageUrl;
+
+    const { title, content } = req.body;
+
     // Validation 1: fields mustn't be empty
     if (title === "" || content === "") {
       res.render("publications/new-publication.hbs", {
@@ -36,7 +37,6 @@ router.post(
     }
 
     try {
-             
       // let imageUrl;
       // if (req.file !== undefined) {
       //   imageUrl = req.file.path;
@@ -45,7 +45,7 @@ router.post(
       const newPublication = {
         title: title,
         content: content,
-        file: req.file?.path,     // "?" if req.file is undefined, takes default value in the model
+        file: req.file?.path, // "?" if req.file is undefined, takes default value in the model
         user: req.session.userOnline,
       };
       await Publication.create(newPublication);
@@ -126,7 +126,7 @@ router.post("/:commentId/edit", isUserLoggedIn, async (req, res, next) => {
   }
 });
 
-// POST "/users/:commentId/edit" => updates comment message and renders it
+// POST "/users/:commentId/delete" => updates comment message and renders it
 router.post("/:commentId/delete", isUserLoggedIn, async (req, res, next) => {
   const { commentId } = req.params;
 

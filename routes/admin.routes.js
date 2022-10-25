@@ -80,10 +80,13 @@ router.post("/users/:userId/delete", isAdmin, async (req, res, next) => {
 // GET "/admin/publications" => renders publication list for both moderator and admin
 router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
   try {
-    const pendingList = await Publication.find();
+    const pendingList = await Publication.find({ approved: false });
+    const approvedList = await Publication.find({ approved: true });
+    console.log(approvedList);
 
     res.render("publications/pending/list.hbs", {
       pendingList,
+      approvedList,
     });
   } catch (error) {
     next(error);
@@ -105,7 +108,29 @@ router.post(
         { new: true }
       );
 
-      res.redirect("/");
+      res.redirect("/admin/publications");
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// POST "/admin/publications/:publicationId/cancel" => cancels current publication to be added to the index page list
+router.post(
+  "/publications/:publicationId/cancel",
+  isModeratorOrAdmin,
+  async (req, res, next) => {
+    const { publicationId } = req.params;
+
+    try {
+      // Changes boolean value "approved" to true, to use it after in index.hbs to see the publication
+      await Publication.findByIdAndUpdate(
+        publicationId,
+        { approved: false },
+        { new: true }
+      );
+
+      res.redirect("/admin/publications");
     } catch (error) {
       next(error);
     }
