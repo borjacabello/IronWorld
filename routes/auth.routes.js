@@ -3,22 +3,23 @@ const router = express.Router();
 const User = require("../models/User.model");
 const bcrypt = require("bcryptjs");
 const Comment = require("../models/Comment.model");
+const uploader = require("../middlewares/cloudinary.js")
 
 // * Authentication routes
 
 // * Sign Up routes
-// GET "/auth/signup" => Renders User Registration Form
-//router.get("/signup", (req, res, next) => {
-//  res.render("auth/signop.hbs");
-//});
+//GET "/auth/signup" => Renders User Registration Form
+router.get("/signup", (req, res, next) => {
+res.render("auth/signup.hbs");
+});
 
 // POST "/auth/signup" => Retrieves new user info from signup.hbs and creates the profile in the DB
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", uploader.single("profileImage"), async (req, res, next) => {
   const { username, age, email, password } = req.body;
   
   // Validation 1: All the fields must not be empty
   if (username === "" || age === "" || email === "" || password === "") {
-    res.render("partials/signup.hbs", {
+    res.render("auth/signup.hbs", {
       errorMessage: "All the fields must be completed",
     });
     
@@ -89,6 +90,7 @@ router.post("/signup", async (req, res, next) => {
       age: age,
       email: email,
       password: hashedPassword,
+      profileImage: req.profileImage?.path
     };
     
     await User.create(newUser);

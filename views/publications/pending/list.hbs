@@ -1,25 +1,3 @@
-{{! *************** PENDING LIST *************** }}
-
-<div class="col-5 d-flex flex-column align-items-start justify-content-start">
-    <h2>PENDING</h2>
-    
-    {{!-- Display pending, edit and delete buttons in the publications list --}}
-    {{#each pendingList}}
-        <div class="d-flex flex-row justify-content-start">
-            <p>{{title}}</p>
-            <form action="/admin/publications/{{_id}}/approval" method="POST">
-                <button>Approve</button>
-            </form>
-            <a href="/admin/publications/{{_id}}/edit">
-                <button>Edit</button>
-            </a>
-            <form action="/admin/publications/{{_id}}/delete" method="POST">
-                <button>Delete</button>
-            </form>
-        </div>
-    {{/each}}
-</div>
-
 {{! *************** APPROVED LIST *************** }}
 
 <div class="col-5 d-flex flex-column align-items-start justify-content-start">
@@ -40,4 +18,26 @@
       </form>
     </div>
   {{/each}}
+</div>
+
+{{! *************** PENDING LIST *************** }}
+
+<div class="col-5 d-flex flex-column align-items-start justify-content-start">
+    <h2>PENDING</h2>
+    
+    {{!-- Display pending, edit and delete buttons in the publications list --}}
+    {{#each pendingList}}
+        <div class="d-flex flex-row justify-content-start">
+            <p>{{title}}</p>
+            <form action="/admin/publications/{{_id}}/approval" method="POST">
+                <button>Approve</button>
+            </form>
+            <a href="/admin/publications/{{_id}}/edit">
+                <button>Edit</button>
+            </a>
+            <form action="/admin/publications/{{_id}}/delete" method="POST">
+                <button>Delete</button>
+            </form>
+        </div>
+    {{/each}}
 </div>
