@@ -10,8 +10,16 @@ router.get("/", async (req, res, next) => {
   try {
     // Use populate({path: "id"}) to populate the users inside each comment in the publication
     const publications = await Publication.find()
+      .sort({createdAt: -1})
       .populate("user")
       .populate({ path: "comments", populate: { path: "user" } });
+
+    const clonedPublications = JSON.parse(JSON.stringify(publications))
+
+    clonedPublications.forEach(eachPublication => {
+      eachPublication.createdAt = new Date(eachPublication.createdAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
+      eachPublication.updatedAt = new Date(eachPublication.updatedAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
+    })
 
     // API jobs
     const url = 'https://tech-job-search-api.p.rapidapi.com/';
@@ -30,7 +38,7 @@ router.get("/", async (req, res, next) => {
     let jobOffers = jsonResponse.slice(0, 10)
 
     res.render("index.hbs", {
-      publications,
+      clonedPublications,
       jobOffers
     });
 
