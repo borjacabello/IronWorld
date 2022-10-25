@@ -90,7 +90,7 @@ router.get(
   }
 );
 
-// POST "/user/coment/create" => creates a new coment for a publication in the DB
+// POST "/user/comment/create" => creates a new coment for a publication in the DB
 router.post(
   "/:publicationId/comment/create",
   isUserLoggedIn,

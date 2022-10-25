@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
+const uploader = require("../middlewares/cloudinary.js");
 
 // Import middlewares
 const {
@@ -159,7 +160,7 @@ router.get(
 );
 
 // POST "/admin/publications/:publicationId/edit" => edit current publication and redirects to pending list
-router.post("/publications/:publicationId/edit", async (req, res, next) => {
+router.post("/publications/:publicationId/edit", uploader.single("file"), async (req, res, next) => {
   const { publicationId } = req.params;
   const { title, content, file, approved } = req.body;
 
