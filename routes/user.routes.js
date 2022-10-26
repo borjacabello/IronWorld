@@ -49,25 +49,24 @@ router.post(
       };
       await Publication.create(newPublication);
 
-      res.redirect("/");
+      res.render("publications/pending-pub-message");
     } catch (error) {
       next(error);
     }
   }
 );
 
-
 // GET "/user/search-publication" => renders searched publications page from "/"
 router.get("/search-publication", async (req, res, next) => {
   // To lower case the searched term to correctly compare it with the publications
-  let searchTerm = req.query.searchTerm.toLowerCase()
+  let searchTerm = req.query.searchTerm.toLowerCase();
 
   // Variables to lowercase title and content in the publications
   let searchInTitle;
   let searchInContent;
 
   // Regular expression to match any non-blank space character in a string
-  const regexBlankSpaces = /\S/
+  const regexBlankSpaces = /\S/;
 
   // Variable to check if some result has matched the search query
   let matchedResult = false;
@@ -75,53 +74,51 @@ router.get("/search-publication", async (req, res, next) => {
   // Validation: search can't be empty or be equal to blank spaces
   if (searchTerm === "" || !regexBlankSpaces.test(searchTerm)) {
     res.render("publications/search-publication.hbs", {
-      errorMessage: "Your search can't be empty nor containing only blank spaces!",
+      errorMessage:
+        "Your search can't be empty nor containing only blank spaces!",
     });
     return;
   }
 
   try {
     const approvedList = await Publication.find({ approved: true })
-    .sort({createdAt: -1})
-    .populate("user", "username profileImage")
+      .sort({ createdAt: -1 })
+      .populate("user", "username profileImage");
 
-    const filteredPublications = JSON.parse(JSON.stringify(approvedList))
+    const filteredPublications = JSON.parse(JSON.stringify(approvedList));
 
-    filteredPublications.forEach(eachPublication => {
-      searchInTitle = eachPublication.title.toLowerCase().includes(searchTerm)
-      searchInContent = eachPublication.content.toLowerCase().includes(searchTerm) 
+    filteredPublications.forEach((eachPublication) => {
+      searchInTitle = eachPublication.title.toLowerCase().includes(searchTerm);
+      searchInContent = eachPublication.content
+        .toLowerCase()
+        .includes(searchTerm);
 
       if (searchInTitle || searchInContent) {
-        eachPublication.searched = true
-        matchedResult = true
+        eachPublication.searched = true;
+        matchedResult = true;
       }
-    })
+    });
 
-    filteredPublications.forEach(eachPublication => {
-      eachPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
+    filteredPublications.forEach((eachPublication) => {
+      eachPublication.createdAt = new Intl.DateTimeFormat("es-ES", {
         timeStyle: "medium",
-        dateStyle: "short"
-      })
-      .format(new Date(eachPublication.createdAt))
-      eachPublication.updatedAt = new Intl.DateTimeFormat('es-ES', {
+        dateStyle: "short",
+      }).format(new Date(eachPublication.createdAt));
+      eachPublication.updatedAt = new Intl.DateTimeFormat("es-ES", {
         timeStyle: "medium",
-        dateStyle: "short"
-      })
-      .format(new Date(eachPublication.updatedAt))
-    })
-
+        dateStyle: "short",
+      }).format(new Date(eachPublication.updatedAt));
+    });
 
     res.render("publications/search-publication.hbs", {
       filteredPublications,
       searchTerm,
-      matchedResult
-    })
-
-  } catch(error) {
-    next(error)
+      matchedResult,
+    });
+  } catch (error) {
+    next(error);
   }
-
-})
+});
 
 // GET "/user/:publicationId/details" => renders publication details page from "/"
 // *Note: this publication details page is different than the renderized one from the profile or admin publs. list
@@ -137,26 +134,28 @@ router.get(
         .populate("user", "username profileImage role")
         .populate({ path: "comments", populate: { path: "user" } });
 
-      const clonedPublication = JSON.parse(JSON.stringify(detailedPublication))
+      const clonedPublication = JSON.parse(JSON.stringify(detailedPublication));
 
-      clonedPublication.comments.sort( (a, b) => new Date(b.createdAt) - new Date(a.createdAt) );
-      
-      clonedPublication.comments.forEach(eachComment => {
-        eachComment.createdAt = new Intl.DateTimeFormat('es-ES', {
-          timeStyle: "medium",
-          dateStyle: "short"
-        })
-        .format(new Date(eachComment.createdAt))
-        eachComment.updatedAt = new Intl.DateTimeFormat('es-ES', {
-          timeStyle: "medium",
-          dateStyle: "short"
-        })
-        .format(new Date(eachComment.updatedAt))
-      })
-      
-      clonedPublication.comments.sort( (a, b) => new Date(b.createdAt) - new Date(a.createdAt) );
+      clonedPublication.comments.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
 
-      clonedPublication.comments.forEach(eachComment => {
+      clonedPublication.comments.forEach((eachComment) => {
+        eachComment.createdAt = new Intl.DateTimeFormat("es-ES", {
+          timeStyle: "medium",
+          dateStyle: "short",
+        }).format(new Date(eachComment.createdAt));
+        eachComment.updatedAt = new Intl.DateTimeFormat("es-ES", {
+          timeStyle: "medium",
+          dateStyle: "short",
+        }).format(new Date(eachComment.updatedAt));
+      });
+
+      clonedPublication.comments.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      clonedPublication.comments.forEach((eachComment) => {
         if (
           req.session.userOnline.role === "admin" ||
           req.session.userOnline.role === "moderator"
@@ -173,16 +172,14 @@ router.get(
         }
       });
 
-      clonedPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
+      clonedPublication.createdAt = new Intl.DateTimeFormat("es-ES", {
         timeStyle: "medium",
-        dateStyle: "short"
-      })
-      .format(new Date(clonedPublication.createdAt))
-      clonedPublication.updatedAt = new Intl.DateTimeFormat('es-ES', {
+        dateStyle: "short",
+      }).format(new Date(clonedPublication.createdAt));
+      clonedPublication.updatedAt = new Intl.DateTimeFormat("es-ES", {
         timeStyle: "medium",
-        dateStyle: "short"
-      })
-      .format(new Date(clonedPublication.updatedAt))
+        dateStyle: "short",
+      }).format(new Date(clonedPublication.updatedAt));
 
       res.render("publications/main-details.hbs", {
         clonedPublication,
@@ -200,14 +197,13 @@ router.post(
   async (req, res, next) => {
     const { publicationId } = req.params;
     const { message } = req.body;
-    const regexBlankSpaces = /\S/
-  
+    const regexBlankSpaces = /\S/;
 
     // Validation 1: field mustn't be empty
     if (message === "" || !regexBlankSpaces.test(message)) {
       res.render("publications/comment-error.hbs", {
         errorMessage: "Comment message can't be empty",
-        publicationId
+        publicationId,
       });
       return;
     }
