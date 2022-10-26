@@ -2,7 +2,7 @@
 
 <div class="col-5 d-flex flex-column align-items-start justify-content-start">
   <h2>APPROVED</h2>
-
+  <p style="color: darkblue;">{{emptyMessageApproved}}</p>
   {{! Display approved, edit and delete buttons in the publications list }}
   {{#each approvedList}}
     <div class="d-flex flex-row justify-content-start">
@@ -24,7 +24,7 @@
 
 <div class="col-5 d-flex flex-column align-items-start justify-content-start">
     <h2>PENDING</h2>
-    
+    <p style="color: darkblue;">{{emptyMessagePending}}</p>
     {{!-- Display pending, edit and delete buttons in the publications list --}}
     {{#each pendingList}}
         <div class="d-flex flex-row justify-content-start">

@@ -15,7 +15,8 @@ const {
 // GET "/admin/users" => renders the user list only for admin management purposes
 router.get("/users", isAdmin, async (req, res, next) => {
   try {
-    const userList = await User.find();
+    const userList = await User.find()
+    
 
     res.render("users/list.hbs", {
       userList,
@@ -82,8 +83,26 @@ router.post("/users/:userId/delete", isAdmin, async (req, res, next) => {
 // GET "/admin/publications" => renders publication list for both moderator and admin
 router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
   try {
-    const pendingList = await Publication.find({ approved: false });
-    const approvedList = await Publication.find({ approved: true });
+    const pendingList = await Publication.find({ approved: false }).sort({createdAt: -1});
+    const approvedList = await Publication.find({ approved: true }).sort({createdAt: -1});
+    
+
+
+    if (pendingList.length === 0) {
+      res.render("publications/pending/list.hbs", {
+        emptyMessagePending: "There is no more publications.",
+        pendingList,
+        approvedList
+      });
+      next()
+    } else if (approvedList.length === 0){
+      res.render("publications/pending/list.hbs", {
+        emptyMessageApproved: "All publications approved.",
+        pendingList,
+        approvedList
+      });
+      next()
+    }
 
     res.render("publications/pending/list.hbs", {
       pendingList,
