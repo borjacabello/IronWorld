@@ -1,6 +1,6 @@
 <div class="col-10 d-flex flex-column align-items-start justify-content-start">
 
-  <div>
+  <div class="col-5 d-flex flex-column align-items-start justify-content-start">
 
     {{#with profileDetails}}
       <h2>User Profile: {{username}}</h2>
@@ -11,30 +11,28 @@
 
   </div>
 
-  <div>
-    <h4>Own Publications</h4>
+  <div class="col-5 d-flex flex-row align-items-start justify-content-between">
+    <div>
+    <h4>Own Posts</h4>
     {{#each publicationUserOnline}}
-    <a href="/profile/publications/{{_id}}/details">
-      <h5>{{title}}</h5>
-    </a>
+      <a href="/profile/publications/{{_id}}/details">
+        <h5>{{title}}</h5>
+      </a>
       <p>created: {{createdAt}}</p>
       <p>updated: {{updatedAt}}</p>
 
     {{/each}}
+    </div>
+    <div class="col-5 d-flex flex-column align-items-start justify-content-start">
+      <h4>Favourite Posts</h4>
+
+      {{#each profileDetails.favourites}}
+        <a href="/user/{{_id}}/details">
+          <h5>{{title}}</h5>
+        </a>
+      {{/each}}
+    </div>
 
   </div>
-</div>
 
-  <div>
-    <h4>Favourite Publicatios</h4>
-    {{!-- {{#each publicationUserOnline}}
-    <a href="/profile/publications/{{_id}}/details">
-      <h5>{{title}}</h5>
-    </a>
-      <p>created: {{createdAt}}</p>
-      <p>updated: {{updatedAt}}</p>
-
-    {{/each}} --}}
-
-  </div>
 </div>
