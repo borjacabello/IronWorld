@@ -14,13 +14,32 @@ const {
 router.get("/", isUserLoggedIn, async (req, res, next) => {
   try {
     const userOnlineDetails = await User.findById(req.session.userOnline);
-    const publicationUserOnline = await Publication.find({
-      user: userOnlineDetails,
-    }).populate("user");
+    const publicationUserOnline = await Publication.find({user: userOnlineDetails,}).populate("user");
+
+    const clonedPublicationUserOnline = JSON.parse(JSON.stringify(publicationUserOnline))
+
+    clonedPublicationUserOnline.sort((a, b) => new Date (b.createdAt) - new Date (a.createdAt))
+  
+  
+
+    clonedPublicationUserOnline.forEach(eachPublication => {
+      eachPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(eachPublication.createdAt))
+
+      eachPublication.updatedAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(eachPublication.updatedAt))
+
+    })
 
     res.render("profile/my-profile.hbs", {
       profileDetails: userOnlineDetails,
-      publicationUserOnline: publicationUserOnline,
+      publicationUserOnline: clonedPublicationUserOnline,
     });
   } catch (error) {
     next(error);
