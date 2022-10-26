@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
+const uploader = require("../middlewares/cloudinary.js")
 
 // Import middlewares
 const {
@@ -99,14 +100,14 @@ router.get(
 
 // POST "/profile/publications/:publicationId/edit" => renders profile own publication to edit
 router.post(
-  "/publications/:publicationId/edit", isUserLoggedIn, async (req, res, next) => {
+  "/publications/:publicationId/edit", isUserLoggedIn, uploader.single("file"), async (req, res, next) => {
     const { publicationId } = req.params;
-    const {title, content, file} = req.body
+    const {title, content} = req.body
     try {
       const ownPubEdited = await Publication.findByIdAndUpdate(publicationId, {
         title,
         content,
-        file
+        file: req.file?.path
       });
       res.redirect(`/profile/publications/${publicationId}/details`);
     } catch (error) {

@@ -5,6 +5,7 @@
       action="/profile/publications/{{_id}}/edit"
       method="POST"
       class="bg-light"
+      enctype="multipart/form-data"
     >
       <div>
         <label for="title" class="form-label">Title: </label>
@@ -28,7 +29,7 @@
 
       <div>
         <label for="file" class="form-label">File:</label>
-        <input type="text" name="file" value="{{file}}" class="form-control" />
+        <input type="file" name="file" value="{{file}}" class="form-control" />
       </div>
 
       <button class="btn btn-primary">Edit</button>

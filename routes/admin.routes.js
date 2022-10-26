@@ -94,20 +94,21 @@ router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
         pendingList,
         approvedList
       });
-      next()
+      
     } else if (approvedList.length === 0){
       res.render("publications/pending/list.hbs", {
         emptyMessageApproved: "All publications approved.",
         pendingList,
         approvedList
       });
-      next()
-    }
+      
+    } else {
 
-    res.render("publications/pending/list.hbs", {
-      pendingList,
-      approvedList,
-    });
+     res.render("publications/pending/list.hbs", {
+       pendingList,
+       approvedList,
+     });
+    }
   } catch (error) {
     next(error);
   }
