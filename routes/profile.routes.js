@@ -10,6 +10,7 @@ const {
   isAdmin,
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
+const { populate } = require("../models/User.model");
 
 // GET /profile => Renders user profile page
 router.get("/", isUserLoggedIn, async (req, res, next) => {
@@ -19,10 +20,9 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
 
     const clonedPublicationUserOnline = JSON.parse(JSON.stringify(publicationUserOnline))
 
+    // Publications sorted by created date
     clonedPublicationUserOnline.sort((a, b) => new Date (b.createdAt) - new Date (a.createdAt))
-  
-  
-
+    // Publications date with timestamps reduce
     clonedPublicationUserOnline.forEach(eachPublication => {
       eachPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
         timeStyle: "medium",
@@ -116,5 +116,22 @@ router.post(
   }
 );
 
+// *********************** FAVOURITE PUBLICATIONS ROUTES *************************************
+// POST "/profile/publications/:publicationId/favourite => add publication to UserOnline.favourite properties
+router.post("/publications/:publicationId/favourite", isUserLoggedIn, async (req, res, next) => {
+  const {publicationId} = req.params
 
+  try {
+    
+    const currentPublication = await Publication.findById(publicationId)
+    const userOnline = await User.findById(req.session.userOnline)
+    const currentUser = await User.findByIdAndUpdate(userOnline, {$addToSet: {favourites: currentPublication}}).populate("publications").select("username favourites")
+    
+    
+   
+    console.log(currentUser)
+  } catch (error) {
+    next(error)
+  }
+})
 module.exports = router;

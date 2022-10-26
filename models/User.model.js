@@ -42,7 +42,12 @@ const userSchema = new mongoose.Schema(
     publications: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Publication"
+    }],
+    favourites: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Publication"
     }]
+        
   },
   {   
     timestamps: true

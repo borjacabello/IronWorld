@@ -19,6 +19,11 @@
                         <img src="{{file}}" alt="file" width="170px">
                     </div>
                     <div class="d-flex flex-row justify-content-end">
+                        
+                          <form action="/profile/publications/{{_id}}/favourite" method="POST">
+                        <button>Add favourite</button>
+                            </form>
+
                         <p class="date">edited on {{updatedAt}}</p>
                     </div>
                 </div>
