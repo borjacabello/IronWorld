@@ -17,8 +17,16 @@ router.get("/", async (req, res, next) => {
     const clonedPublications = JSON.parse(JSON.stringify(publications))
 
     clonedPublications.forEach(eachPublication => {
-      eachPublication.createdAt = new Date(eachPublication.createdAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
-      eachPublication.updatedAt = new Date(eachPublication.updatedAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
+      eachPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(eachPublication.createdAt))
+      eachPublication.updatedAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(eachPublication.updatedAt))
     })
 
     // API jobs

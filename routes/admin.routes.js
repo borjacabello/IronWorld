@@ -84,7 +84,6 @@ router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
   try {
     const pendingList = await Publication.find({ approved: false });
     const approvedList = await Publication.find({ approved: true });
-    console.log(approvedList);
 
     res.render("publications/pending/list.hbs", {
       pendingList,

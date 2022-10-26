@@ -75,8 +75,16 @@ router.get(
       clonedPublication.comments.sort( (a, b) => new Date(b.createdAt) - new Date(a.createdAt) );
       
       clonedPublication.comments.forEach(eachComment => {
-        eachComment.createdAt = new Date(eachComment.createdAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
-        eachComment.updatedAt = new Date(eachComment.updatedAt).toISOString().replace(/T/, ' / ').replace(/\..+/, '');
+        eachComment.createdAt = new Intl.DateTimeFormat('es-ES', {
+          timeStyle: "medium",
+          dateStyle: "short"
+        })
+        .format(new Date(eachComment.createdAt))
+        eachComment.updatedAt = new Intl.DateTimeFormat('es-ES', {
+          timeStyle: "medium",
+          dateStyle: "short"
+        })
+        .format(new Date(eachComment.updatedAt))
       })
       
       clonedPublication.comments.sort( (a, b) => new Date(b.createdAt) - new Date(a.createdAt) );
