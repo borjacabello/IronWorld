@@ -1,6 +1,6 @@
 body {
   padding: 0;
-  margin: 5vh 1vw;
+  margin: 5vh 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100vh;
   width: 100vw; 
@@ -25,6 +25,7 @@ h1 {
 
 #main-box {
   height: 100%;
+  width: 100%;
   margin: 0;
 }
 
@@ -36,6 +37,39 @@ h1 {
   padding: 10px 20px;
 }
 
+#right-nav-bar {
+  padding: 5vh 2vw;
+  background-color: #57BBF5
+}
+
+#job-offers {
+  margin: 15% 0 0 0;
+}
+
+#job-offers ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  line-height: 22px;
+  text-align: center;
+}
+
+#job-offers a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #11158f
+}
+
+#search-form {
+  height: 5%;
+  width: 100%;
+}
+
+#search-field {
+  height: 100%;
+  width: 80%;
+  border-radius: 10px;
+}
 
 #title {
   width: 40%;
@@ -67,7 +101,7 @@ h1 {
 #publication-details-box {
   width: 100%;
   text-decoration: none;
-  padding: 12px;
+  padding: 15px;
 }
 
 #new-details-link p {

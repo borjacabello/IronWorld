@@ -6,10 +6,13 @@
 
             {{!-- Detailed Publication --}}
             <div id="publication-details-box" class="news d-flex flex-row justify-content-start">
-                <div class="d-flex flex-row">
+                <div class="news d-flex flex-row">
                 <img class="news-profile-image" src="{{user.profileImage}}" alt="profile-image">
                 <div class="news-items d-flex flex-column">
-                    <p><span>{{user.username}}</span></p>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><span>{{user.username}}</span></p>
+                        <p class="date">created on {{createdAt}}</p>
+                    </div>
                     <div class="separator"></div>
                     <div class="new-content d-flex flex-column">
                         <p class="new-title">{{title}}</p>
@@ -30,6 +33,7 @@
                         <input type="text" name="message" class="form-control" placeholder="Add a comment...">
                         <button class ="btn btn-success">Comment</button>
                     </form>
+                    <p>{{../errorMessage}}</p>
                 </div>
                 
                 {{!-- Display publication comments --}}
