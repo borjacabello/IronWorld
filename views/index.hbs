@@ -28,11 +28,22 @@
     {{/each}}
 </div>
 
-<div class="col-3 d-flex flex-column bg-light">
-    <h3>Check the latest IT remote jobs!</h3>
-    <ol>
-        {{#each jobOffers}}
-            <li><a href="{{url}}" target="_blank">{{title}}</a></li>
-        {{/each}}
-    </ol>
+<div  class="col-3 d-flex flex-column bg-light justify-content-around">
+    <div>
+        <form action="user/search-publication" method="GET">
+            <label for="searchTerm">Search a Publication:</label>
+            <input type="text" name="searchTerm" placeholder="Enter your search...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Check the latest IT remote jobs!</h3>
+        <ol>
+            {{#each jobOffers}}
+                <li><a href="{{url}}" target="_blank">{{title}}</a></li>
+            {{/each}}
+        </ol>
+    </div>
 </div>
+

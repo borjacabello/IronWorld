@@ -56,6 +56,65 @@ router.post(
   }
 );
 
+
+// GET "/user/search-publication" => renders searched publications page from "/"
+router.get("/search-publication", async (req, res, next) => {
+  const {searchTerm} = req.query
+
+  // Regular expression to match any non-blank space character in a string
+  const regexBlankSpaces = /\S/
+
+  // Variable to check if some result has matched the search query
+  let matchedResult = false;
+
+  // Validation: search can't be empty or be equal to
+  if (searchTerm === "" || !regexBlankSpaces.test(searchTerm)) {
+    res.render("publications/search-publication.hbs", {
+      errorMessage: "Your search can't be empty nor containing only blank spaces!",
+    });
+    return;
+  }
+
+  try {
+    const approvedList = await Publication.find({ approved: true })
+    .sort({createdAt: -1})
+    .populate("user", "username profileImage")
+
+    const filteredPublications = JSON.parse(JSON.stringify(approvedList))
+
+    filteredPublications.forEach(eachPublication => {
+      if (eachPublication.title.includes(searchTerm) || eachPublication.content.includes(searchTerm)) {
+        eachPublication.searched = true
+        matchedResult = true
+      }
+    })
+
+    filteredPublications.forEach(eachPublication => {
+      eachPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(eachPublication.createdAt))
+      eachPublication.updatedAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(eachPublication.updatedAt))
+    })
+
+
+    res.render("publications/search-publication.hbs", {
+      filteredPublications,
+      searchTerm,
+      matchedResult
+    })
+
+  } catch(error) {
+    next(error)
+  }
+
+})
+
 // GET "/user/:publicationId/details" => renders publication details page from "/"
 // *Note: this publication details page is different than the renderized one from the profile or admin publs. list
 router.get(
