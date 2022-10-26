@@ -4,6 +4,8 @@ const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
 const Comment = require("../models/Comment.model");
 const fetch = require('node-fetch');
+const Jobapi = require("../models/Jobapi.model.js");
+
 
 /* GET home page */
 router.get("/", async (req, res, next) => {
@@ -29,7 +31,7 @@ router.get("/", async (req, res, next) => {
       .format(new Date(eachPublication.updatedAt))
     })
 
-    // API jobs
+    // API jobs     ---  / ---  const jobOffers = await Jobapi.find()  => copy data if api doesnt work
     const url = 'https://tech-job-search-api.p.rapidapi.com/';
     const options = {
     method: 'GET',
@@ -44,7 +46,7 @@ router.get("/", async (req, res, next) => {
 
     // 10 job offers only to display at home page
     let jobOffers = jsonResponse.slice(0, 10)
-
+   
     res.render("index.hbs", {
       clonedPublications,
       jobOffers
