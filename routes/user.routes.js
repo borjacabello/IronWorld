@@ -59,7 +59,12 @@ router.post(
 
 // GET "/user/search-publication" => renders searched publications page from "/"
 router.get("/search-publication", async (req, res, next) => {
-  const {searchTerm} = req.query
+  // To lower case the searched term to correctly compare it with the publications
+  let searchTerm = req.query.searchTerm.toLowerCase()
+
+  // Variables to lowercase title and content in the publications
+  let searchInTitle;
+  let searchInContent;
 
   // Regular expression to match any non-blank space character in a string
   const regexBlankSpaces = /\S/
@@ -67,7 +72,7 @@ router.get("/search-publication", async (req, res, next) => {
   // Variable to check if some result has matched the search query
   let matchedResult = false;
 
-  // Validation: search can't be empty or be equal to
+  // Validation: search can't be empty or be equal to blank spaces
   if (searchTerm === "" || !regexBlankSpaces.test(searchTerm)) {
     res.render("publications/search-publication.hbs", {
       errorMessage: "Your search can't be empty nor containing only blank spaces!",
@@ -83,7 +88,10 @@ router.get("/search-publication", async (req, res, next) => {
     const filteredPublications = JSON.parse(JSON.stringify(approvedList))
 
     filteredPublications.forEach(eachPublication => {
-      if (eachPublication.title.includes(searchTerm) || eachPublication.content.includes(searchTerm)) {
+      searchInTitle = eachPublication.title.toLowerCase().includes(searchTerm)
+      searchInContent = eachPublication.content.toLowerCase().includes(searchTerm) 
+
+      if (searchInTitle || searchInContent) {
         eachPublication.searched = true
         matchedResult = true
       }
@@ -165,6 +173,17 @@ router.get(
         }
       });
 
+      clonedPublication.createdAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(clonedPublication.createdAt))
+      clonedPublication.updatedAt = new Intl.DateTimeFormat('es-ES', {
+        timeStyle: "medium",
+        dateStyle: "short"
+      })
+      .format(new Date(clonedPublication.updatedAt))
+
       res.render("publications/main-details.hbs", {
         clonedPublication,
       });
@@ -181,6 +200,17 @@ router.post(
   async (req, res, next) => {
     const { publicationId } = req.params;
     const { message } = req.body;
+    const regexBlankSpaces = /\S/
+  
+
+    // Validation 1: field mustn't be empty
+    if (message === "" || !regexBlankSpaces.test(message)) {
+      res.render("publications/comment-error.hbs", {
+        errorMessage: "Comment message can't be empty",
+        publicationId
+      });
+      return;
+    }
 
     try {
       const newComment = {

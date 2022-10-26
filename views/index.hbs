@@ -1,4 +1,4 @@
-<div class="col-7 d-flex flex-column align-items-start justify-content-start">
+<div class="col-6 d-flex flex-column align-items-start justify-content-start">
     <h1 id = "iron-world">IronWorld</h1>
 
     {{!-- Let publications in the DB to be shown in Home page if approved --}}
@@ -33,22 +33,22 @@
     {{/each}}
 </div>
 
-<div  class="col-3 d-flex flex-column bg-light justify-content-around">
-    <div>
-        <form action="user/search-publication" method="GET">
-            <label for="searchTerm">Search a Publication:</label>
-            <input type="text" name="searchTerm" placeholder="Enter your search...">
-            <button type="submit">Search</button>
-        </form>
-    </div>
+<div id="right-nav-bar" class="col-4 d-flex flex-column bg-light justify-content-start">
+    
+    <form id ="search-form" action="user/search-publication" method="GET" class="d-flex flex-row justifiy-content-between">
+        <input id="search-field" type="text" name="searchTerm" placeholder="Search a publication..." class="form-control">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
 
-    <div>
-        <h3>Check the latest IT remote jobs!</h3>
-        <ol>
+    <div id="job-offers" class="d-flex flex-column align-items-center justify-content around">
+        <h3>Latest IT job offers</h3>
+        <ul>
             {{#each jobOffers}}
                 <li><a href="{{url}}" target="_blank">{{title}}</a></li>
+                <div class="separator"></div>
             {{/each}}
-        </ol>
+        </ul>
     </div>
 </div>
 
