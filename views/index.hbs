@@ -1,4 +1,4 @@
-<div class="col-6 d-flex flex-column align-items-start justify-content-start">
+<div class="col-6 d-flex flex-column align-items-center justify-content-start">
     <h1 id = "iron-world">IronWorld</h1>
 
     {{!-- Let publications in the DB to be shown in Home page if approved --}}
@@ -11,14 +11,17 @@
                     <div class="d-flex flex-row justify-content-between align-items-center">
                         <p><span>{{user.username}}</span></p>
                         <div id ="like-items" class="d-flex flex-row justify-content-between align-items-center">
-                            <img id="like" src="../images/like.png" alt="like" width="15px">
-                            <p id = "likes-count">{{likes}}</p>
+                            <img id="like-main" src="../images/like.png" alt="like" width="15px">
+                            <p id = "likes-count-main">{{likes}}</p>
                         </div>
                         <div id = "comment-items" class="d-flex flex-row justify-content-between align-items-center">
                             <img id="comment-icon" src="../images/comment.png" alt="like" width="20px">
                             <p>{{commentCounter}}</p>
                         </div>
-                        <p class="date">created on {{createdAt}}</p>
+                        <div class="d-flex flex-column align-items-center justify-content-around">
+                            <p class="date">created on {{createdAt}}</p>
+                            <p class="date">edited on {{updatedAt}}</p>
+                        </div>
                     </div>
                     <div class="separator"></div>
                     <div class="new-content d-flex flex-column">
@@ -26,20 +29,18 @@
                         <p>{{content}}</p>
                         <img src="{{file}}" alt="file" width="170px">
                     </div>
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <div class="d-flex flex-row justify-content-start">
-                            
+                    <div id = "new-buttons" class="d-flex flex-row justify-content-between align-items-center">
+                        <div id="like-unlike" class="d-flex flex-row justify-content-between">
                             <form action="/user/{{_id}}/like" method="POST">
                                 <button class="btn btn-block btn-primary">Like</button>
                             </form>
                             <form action="/user/{{_id}}/unlike" method="POST">
                                 <button class="btn btn-block btn-danger">Unlike</button>
                             </form>
-                            <form action="/profile/publications/{{_id}}/favourite" method="POST">
+                        </div>
+                            <form id="favourite-form" action="/profile/publications/{{_id}}/favourite" method="POST">
                                 <button class="btn btn-dark">Favourite</button>
                             </form>
-                        </div>
-                        <p class="date">edited on {{updatedAt}}</p>
                     </div>
                 </div>
                 </a>
@@ -48,7 +49,7 @@
     {{/each}}
 </div>
 
-<div id="right-nav-bar" class="col-4 d-flex flex-column bg-light justify-content-start">
+<div id="right-nav-bar" class="col-4 d-flex flex-column bg-light justify-content-around">
     
     <form id ="search-form" action="user/search-publication" method="GET" class="d-flex flex-row justifiy-content-between">
         <input id="search-field" type="text" name="searchTerm" placeholder="Search a publication..." class="form-control">
@@ -66,16 +67,16 @@
         </ul>
     </div>
 
-    <div class="d-flex flex-column align-items-center justify-content around">
+    <div id = "key-publications-section" class="d-flex flex-column align-items-center justify-content-around">
         <h3>Most liked publications</h3>
         {{#each sortedPublicationsByLikes}}
             {{#if approved}}
-            <div class="d-flex flex-row justify-content-between">
-                <a href="/user/{{_id}}/details">{{title}}</a>
-                <div class="d-flex flex-row justify-content-start">
-                    <img id="like" src="../images/like.png" alt="like" width="15px">
+            <div id="featuring-publications" class="d-flex flex-row justify-content-start align-items-center">
+                <div class="d-flex flex-row justify-content-center align-items-center">
                     <p id = "likes-count">{{likes}}</p>
+                    <img id="like" src="../images/like.png" alt="like" width="15px">
                 </div>
+                <a href="/user/{{_id}}/details">{{title}}</a>
             </div>
             {{/if}}
         {{/each}}
