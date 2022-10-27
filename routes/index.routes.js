@@ -8,6 +8,9 @@ const fetch = require('node-fetch');
 /* GET home page */
 router.get("/", async (req, res, next) => {
   try {
+
+    const users = await User.find().select({username: 1, profileImage: 1})
+
     // Use populate({path: "id"}) to populate the users inside each comment in the publication
     const publications = await Publication.find()
       .sort({createdAt: -1})
@@ -29,7 +32,7 @@ router.get("/", async (req, res, next) => {
       .format(new Date(eachPublication.updatedAt))
     })
 
-    // API jobs
+    // *API jobs
     const url = 'https://tech-job-search-api.p.rapidapi.com/';
     const options = {
     method: 'GET',
@@ -38,7 +41,7 @@ router.get("/", async (req, res, next) => {
         'X-RapidAPI-Host': 'tech-job-search-api.p.rapidapi.com'
     }
     };
-
+    
     const response = await fetch(url, options)
     const jsonResponse = await response.json()
 
@@ -46,6 +49,7 @@ router.get("/", async (req, res, next) => {
     let jobOffers = jsonResponse.slice(0, 10)
 
     res.render("index.hbs", {
+      users,
       clonedPublications,
       jobOffers
     });
