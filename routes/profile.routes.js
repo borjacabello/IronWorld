@@ -227,11 +227,7 @@ router.post(
         .populate("publications")
         .select("username favourites");
 
-<<<<<<< HEAD
-      res.redirect("/")
-=======
       res.redirect("/");
->>>>>>> 8daf471 (edit profile with validators added)
     } catch (error) {
       next(error);
     }
