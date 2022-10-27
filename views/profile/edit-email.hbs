@@ -1,0 +1,24 @@
+<div id="sign-up-page" class="col-10 d-flex flex-column align-items-center justify-content-center">
+  <h2 style="color: white;"   class="mb-3">Email Edit</h2>
+
+<form action="/profile/edit/email" method="POST">
+
+  <div class="mb-3">
+    <label for="oldemail" class="form-label">Current Email Adress</label>
+    <input type="text" class="form-control" name="oldemail"id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+
+    <div class="mb-3">
+    <label for="newemail" class="form-label">New Email address</label>
+    <input type="text" class="form-control" name="newemail"id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+
+    <div class="mb-3">
+    <label for="repeatemail" class="form-label">Repeat New Email Adress</label>
+    <input type="text" class="form-control" name="repeatemail"id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+
+  <p style="color: red">{{errorMessage}}</p>
+  <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+</div>

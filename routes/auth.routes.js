@@ -77,7 +77,6 @@ router.post(
         res.render("auth/signup.hbs", {
           errorMessage: "Email has been already registered in the website.",
         });
-        everythingIsOk = false;
         return;
       }
 
@@ -185,58 +184,6 @@ router.post("/login", async (req, res, next) => {
     next(error);
   }
 });
-
-
-// // * Log In routes
-// // GET /auth/login => Renders user login page
-// router.get("/login", (req, res, next) => {
-//     res.render("auth/login.hbs")
-// })
-
-// // POST /auth/login => Receives user credentials and validate user
-// router.post("/login", async (req, res, next) => {
-//     const { email, password } = req.body;
-  
-//     // Validation 1: fields mustn't be empty
-//     if (email === "" || password === "") {
-//       res.render("auth/login.hbs", {
-//         errorMessage: "All the fields must be completed",
-//       });
-//       return;
-//     }
-
-//     try {
-//       // Validation 3: User is already registered in the DB
-//       const foundUser = await User.findOne({ email: email });
-//       if (foundUser === null) {
-//         res.render("auth/login.hbs", {
-//           errorMessage: "Incorrect credentials",
-//         });
-//         return;
-//       }
-      
-//       // Validation 4: Password is already registered in the DB
-//       const validPassword = await bcrypt.compare(password, foundUser.password);
-//       if (validPassword === false) {
-//         res.render("auth/login.hbs", {
-//           errorMessage: "Incorrect credentials",
-//         });
-//         return;
-//       }
-  
-//       // Create an active user session
-//       req.session.userOnline = foundUser;
-
-//       // Verifying that the session has been successfully created
-//       req.session.save(  () =>  {
-//         res.redirect("/");
-//       });
-
-//     } catch (error) {
-//       next(error);
-//     }
-//   });
-
 
 //* Log Out route
 // GET "/auth/logout" => closes the current user session (destroy)

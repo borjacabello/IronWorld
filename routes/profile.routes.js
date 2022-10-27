@@ -60,7 +60,7 @@ router.get("/edit", isUserLoggedIn, (req, res, next) => {
   });
 });
 
-// GET /profile/edit => edit the profile page, and redirect to profile
+// POST /profile/edit => edit the profile page, and redirect to profile
 router.post(
   "/edit",
   isUserLoggedIn,
@@ -131,19 +131,13 @@ router.post(
 // GET /profile/editpassword => Renders profile password edit page
 router.get("/editpassword", isUserLoggedIn, async (req, res, next) => {
   try {
-    const userOnlinePassword = await User.findById(
-      req.session.userOnline
-    ).select("password");
-
-    res.render("profile/edit-password.hbs", {
-      userPasswordToEdit: userOnlinePassword,
-    });
+    res.render("profile/edit-password.hbs");
   } catch (error) {
     next;
   }
 });
 
-// GET /profile/editpassword => Renders profile password edit page
+// POST /profile/editpassword => Renders profile password edit page
 router.post("/editpassword", isUserLoggedIn, async (req, res, next) => {
   const { oldpassword, newpassword, repeatnewpassword } = req.body;
 
@@ -158,17 +152,29 @@ router.post("/editpassword", isUserLoggedIn, async (req, res, next) => {
   // Validation 2: New passwords must be equal
   if (newpassword !== repeatnewpassword) {
     res.render("profile/edit-password.hbs", {
-     errorMessage: "New paswords must be the same",
-   });
-     return;
-   }
+      errorMessage: "New paswords must be equal",
+    });
+    return;
+  }
+
+  // Validation 3: Password format validation
+  const passwordFormat =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+  if (!passwordFormat.test(password)) {
+    res.render("auth/signup.hbs", {
+      errorMessage:
+        "Password should have at least 8 characteres, an uppercase letter and a number",
+    });
+
+    return;
+  }
 
   try {
     const foundUser = await User.findById(req.session.userOnline).select(
       "password"
     );
 
-    // Validation 3: Compare userOnline Password with the password in hbsInput
+    // Validation 4: Compare userOnline Password with the password in hbsInput
     const validPassword = await bcrypt.compare(oldpassword, foundUser.password);
     if (validPassword === false) {
       res.render("profile/edit-password.hbs", {
@@ -183,6 +189,65 @@ router.post("/editpassword", isUserLoggedIn, async (req, res, next) => {
       });
 
       res.redirect("/logout");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET /profile/edit/email => Renders profile email edit page
+router.get("/edit/email", isUserLoggedIn, (req, res, next) => {
+  res.render("profile/edit-email.hbs");
+});
+
+// POST /profile/edit/email => Renders profile email edit page
+router.post("/edit/email", isUserLoggedIn, async (req, res, next) => {
+  const { oldemail, newemail, repeatemail } = req.body;
+  console.log(oldemail)
+  console.log(newemail)
+  console.log(repeatemail)
+
+  // Validation 1: fields mustn't be empty
+  if (oldemail === "" || newemail === "" || repeatemail === "") {
+    res.render("profile/edit-email.hbs", {
+      errorMessage: "All the fields must be completed",
+    });
+    return;
+  }
+
+  // Validation 2: New passwords must be equal
+  if (newemail !== repeatemail) {
+    res.render("profile/edit-email.hbs", {
+      errorMessage: "new Emails must be equal",
+    });
+    return;
+  }
+
+  // Validation 3: Email format validation
+   const emailFormat =
+     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+   if (!emailFormat.test(oldemail) || !emailFormat.test(newemail) || !emailFormat.test(repeatemail)) {
+     res.render("profile/edit-email.hbs", {
+       errorMessage: "Incorrect email format",
+     });
+
+     return;
+   }
+
+  try {
+
+    // Validation 4: Email doesn't already exists in the DB
+    const userEmail = await User.findOne({ email: oldemail }).select("email");
+    console.log(userEmail)
+    if (userEmail !== null && userEmail.email !== req.session.userOnline.email) {
+      res.render("profile/edit-email.hbs", {
+        errorMessage: "Email has been already registered in the website.",
+      });
+      return;
+    } else {
+
+    const updatedEmail = await User.findByIdAndUpdate(req.session.userOnline, {email: newemail})
+    res.redirect("/profile")
     }
   } catch (error) {
     next(error);
