@@ -86,8 +86,6 @@ router.get("/publications", isModeratorOrAdmin, async (req, res, next) => {
     const pendingList = await Publication.find({ approved: false }).sort({createdAt: -1});
     const approvedList = await Publication.find({ approved: true }).sort({createdAt: -1});
     
-
-    // 
     if (pendingList.length === 0) {
       res.render("publications/pending/list.hbs", {
         emptyMessagePending: "There is no more publications.",
