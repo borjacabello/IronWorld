@@ -53,7 +53,7 @@ router.post("/users/:userId/edit", isAdmin, uploader.single("profileImage"), asy
     email: email,
     age: age,
     role: role,
-    profileImage: req.profileImage?.path,
+    profileImage: req.file?.path,
     links: links,
   };
 
