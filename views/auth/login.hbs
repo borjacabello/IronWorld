@@ -1,18 +1,20 @@
-<div id="sign-up-page" class="col-10 d-flex flex-column align-items-center justify-content-center">
-  <h2 class="mb-3">LogIn</h2>
+<div id="log-in-page" class="col-10 d-flex flex-column align-items-center justify-content-start bg-light">
+  <h2>Log In</h2>
 
 <form action="/auth/login" method="POST">
 
-  <div class="mb-3">
+  <div class="log-in-divider">
     <label for="email" class="form-label">Email address</label>
     <input type="text" class="form-control" name="email"id="exampleInputEmail1" aria-describedby="emailHelp">
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
-  <div class="mb-3">
+  <div class="log-in-divider">
     <label for="password" class="form-label">Password</label>
     <input type="password" name="password"class="form-control" id="exampleInputPassword1">
   </div>
   <p style="color: red">{{errorMessage}}</p>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="d-flex flex-row align-items-center">
+    <button id="submit-log-in-btn" type="submit" class="btn btn-primary">Submit</button>
+  </div>
 </form>
 </div>

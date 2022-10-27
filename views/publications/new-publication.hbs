@@ -1,30 +1,34 @@
-       
-   <div class="col-10 d-flex flex-column align-items-start justify-content-start">
-
-            <h2>New Publication</h2>
-       
-        <form id="publication" action="/user/publication/create" method="POST" class="bg-light" enctype="multipart/form-data">
-        <div>
+<div id="publication-details-edit-page" class="col-10 d-flex flex-column align-items-center justify-content-start bg-light">
+    <h2>New Publication</h2>
+    
+    <div id="publication-creation-form" class="d-flex flex-column align-items-center justify-content-start">
+        <form action="/user/publication/create" method="POST"  enctype="multipart/form-data">
+        <div class="margin-fields">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" id = "title">
+                <input type="text" name="title" class="form-control" id = "title">
         </div>
-        
-        <div>
+    
+        <div class="margin-fields">
             <label for="content" class="form-label">Description</label>
             <input name="content" class="form-control" placeholder="What's happening?" rows="3">
         </div>
         
-        <div>
+        <div class="margin-fields">
             <label for="file" class="form-label">Select a File:</label>
             <input type="file" name="file" class="form-control" id="file">
         </div>
 
-        <br>
-
         <p style="color: rgb(126, 16, 16);">{{errorMessage}}</p>
-        <button type="submit" class="btn btn-primary">Create Publication</button>
-        <a href="/"><button type="button" class="btn btn-secondary">Go home</button></a>
-        </form>
 
+        <div id="pubs" class="margin-fields d-flex flex-row align-items-center justify-content-around">
+            <button type="submit" class="btn btn-primary">Create Publication</button>
+            <a href="/">
+                <button type="button" class="btn btn-secondary">Go home</button>
+            </a>
+        </div>
+        
+        </form>
     </div>
+    
+</div>
 

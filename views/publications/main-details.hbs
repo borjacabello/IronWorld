@@ -1,5 +1,5 @@
-<div class="col-8 d-flex flex-column align-items-start justify-content-start">
-    <h1 id = "iron-world">IronWorld</h1>
+<div id ="publi-details-comments-box" class="col-8 d-flex flex-column align-items-center justify-content-start">
+    <h1 id = "iron-world">Publication details</h1>
 
     {{!-- Publication and comments --}}
     {{#with clonedPublication}}
@@ -45,7 +45,7 @@
                             <div id ="comment-details-box">
                             
                                 {{#if edited}}
-                                    <form id = "comment-details-edit" action="/user/{{../_id}}/{{_id}}/edit" method="POST" class="d-flex flex-row justify-content-between" >
+                                    <form id = "comment-details-edit" action="/user/{{../_id}}/{{_id}}/edit" method="POST" class="d-flex flex-row justify-content-between align-items-center" >
                                         <div class="d-flex flex-column comment-area">
                                             <p id ="comment-username">{{user.username}}</p>
                                             <input type="text" name="message" value="{{message}}" class="form-control">

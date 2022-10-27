@@ -7,8 +7,7 @@ body {
   margin: 5vh 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100vh;
-  width: 100vw; 
-  /* background-color: #57BBF5; */
+  width: 100vw;
   background-color:#a5aaa8;
   position: sticky;
 }
@@ -185,6 +184,7 @@ h1 {
   width: 100%;
   text-decoration: none;
   padding: 15px;
+  margin: 0 0 20px 0;
 }
 
 #new-details-link p {
@@ -192,11 +192,15 @@ h1 {
   text-decoration: none;
 }
 
+#publi-details-comments-box {
+  margin: 0 0 0 40px;
+}
+
 #comments-section {
   width: 100%;
   background-color: #C8E9FB;
-  margin: 0 0 0 5px;
-  border-radius: 5px;
+  border-radius: 15px 15px 0 0;
+  padding: 15px;
 }
 
 #add-comment-box {
@@ -326,13 +330,54 @@ h1 {
 
 /*Sign up page render*/
 #sign-up-page {
-  height: 100%;
+  height: 70%;
+  width: 46%;
+  margin: auto;
+  padding: 25px;
+  border-radius: 30px;
 }
 
+#sign-up-page h2 {
+  font-size: 50px;
+  margin: 20px auto 25px;
+}
+
+#sign-up-page label {
+  font-weight: bold;
+}
+
+.sign-up-divider {
+  margin: 20px auto;
+}
+
+#submit-sign-up-btn {
+  margin: auto;
+}
 
 /*Log in page render*/
 #log-in-page {
-  height: 100%;
+  height: 50%;
+  width: 46%;
+  margin: auto;
+  padding: 25px;
+  border-radius: 30px;
+}
+
+#log-in-page h2 {
+  font-size: 50px;
+  margin: 40px auto 25px;
+}
+
+.log-in-divider {
+  margin: 20px auto;
+}
+
+#log-in-page label {
+  font-weight: bold;
+}
+
+#submit-log-in-btn {
+  margin: auto;
 }
 
 /*User List page*/
@@ -426,5 +471,35 @@ h1 {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 70%;
+}
+
+/* Publication creation Page */
+#publication-details-edit-page {
+  margin: auto;
+  padding: 20px;
+  height: 70%;
+  width: 70%;
+  border-radius: 30px;
+}
+
+#publication-details-edit-page h2 {
+  font-size: 50px;
+  margin: 20px auto;
+}
+
+#publication-creation-form {
+  width: 100%;
+}
+
+#publication-creation-form form {
+  width: 80%;
+}
+
+.margin-fields {
+  margin: 30px auto;
+}
+
+#pubs {
   width: 70%;
 }
