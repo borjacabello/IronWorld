@@ -20,8 +20,12 @@
                     </div>
                     <div class="d-flex flex-row justify-content-between align-items-center">
                         <div class="d-flex flex-row justify-content-start">
+                            <p>{{likes}}</p>
                             <form action="/user/{{_id}}/like" method="POST">
-                                <button class="btn btn-block btn-primary"><i class="fa fa-thumbs-up">Like</i></button>
+                                <button class="btn btn-block btn-primary">Like</button>
+                            </form>
+                            <form action="/user/{{_id}}/unlike" method="POST">
+                                <button class="btn btn-block btn-danger">Unlike</button>
                             </form>
                             <form action="/profile/publications/{{_id}}/favourite" method="POST">
                                 <button class="btn btn-dark">Favourite</button>

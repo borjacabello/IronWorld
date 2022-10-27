@@ -297,35 +297,68 @@ router.post(
 );
 
 //* LIKES
-// POST "/user/:publicationId/like" => adds like to the publication counter
+// POST "/user/:publicationId/like" => adds like to the likes publication counter and adds user to the whoLikes array
 router.post("/:publicationId/like", isUserLoggedIn, async (req, res, next) => {
   const { publicationId } = req.params;
 
   try {
 
-    const userOnline = await User.findById(req.session.userOnline._id);
+    const publicationToLike = await Publication.findById(publicationId)
 
     const options = {
-      $push: { whoLikes: userOnline},
+      $addToSet: { whoLikes: req.session.userOnline},
       $inc: { likes: 1 } 
     }
 
-    // Checks if user has already given like to the publication and if so, do nothing
-    const increasedLikes = await Publication.findOneAndUpdate(
-      {
-        publicationId,
-        whoLikes: { $ne: userOnline}
-      },
-      options,
-      {new: true}
-    );
+    if (publicationToLike.whoLikes.includes(req.session.userOnline._id)) {
 
-    res.redirect("/");
+      res.redirect("/");
+
+    } else {
+
+      await Publication.findByIdAndUpdate(publicationId, options, {new: true})
+
+      res.redirect("/")
+
+    }
 
   } catch (error) {
     next(error);
   }
 });
+
+// POST "/user/:publicationId/unlike" => removes like from the likes publication counter and removes user from the whoLikes array
+router.post("/:publicationId/unlike", isUserLoggedIn, async (req, res, next) => {
+  const { publicationId } = req.params;
+
+  try {
+
+    const publicationToUnlike = await Publication.findById(publicationId)
+    
+
+    const options = {
+      $pull: { whoLikes: req.session.userOnline._id},
+      $inc: { likes: -1 } 
+    }
+
+    if (!publicationToUnlike.whoLikes.includes(req.session.userOnline._id)) {
+
+      res.redirect("/");
+
+    } else {
+
+      await Publication.findByIdAndUpdate(publicationId, options, {new: true})
+
+      res.redirect("/")
+
+    }
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 // * FRIENDS
 // POST "/user/_userId/add" => changes user friends status
@@ -343,7 +376,7 @@ router.post("/:publicationId/like", isUserLoggedIn, async (req, res, next) => {
     });
 
     // Update status of the current online user request in the target user array
-    /* await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       userId,
       { 
         $set: {"friends.$[element].state": "requested" } 
