@@ -146,11 +146,7 @@ router.post(
         .populate("publications")
         .select("username favourites");
 
-<<<<<<< HEAD
-      res.redirect("/");
-=======
       res.redirect("/")
->>>>>>> becf834 (delete favourites function added)
     } catch (error) {
       next(error);
     }
