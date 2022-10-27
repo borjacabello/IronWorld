@@ -247,7 +247,7 @@ router.post("/edit/email", isUserLoggedIn, async (req, res, next) => {
     } else {
 
     const updatedEmail = await User.findByIdAndUpdate(req.session.userOnline, {email: newemail})
-    res.redirect("/profile")
+    res.redirect("/logout")
     }
   } catch (error) {
     next(error);
