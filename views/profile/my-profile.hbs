@@ -9,20 +9,31 @@
       <p>Age: {{age}}</p>
       
     {{/with}}
-    <a href="/profile/edit"> <button>Edit Profile</button> </a>
-    <a href="/profile/editemail"> <button>Edit Email</button> </a>
-    <a href="/profile/editpassword"> <button>Edit Password</button> </a>
 
 
      
   </div>
+
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Edit
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/profile/edit">Profile</a></li>
+      <li><a class="dropdown-item" href="/profile/editemail">Email</a></li>
+      <li><a class="dropdown-item" href="/profile/editpassword">Password</a></li>
+
+    </ul>
+  </div>
+</div>
 
   <div class="col-5 d-flex flex-row align-items-start justify-content-between">
     <div>
     <h4>Own Posts</h4>
     {{#each publicationUserOnline}}
       <a href="/profile/publications/{{_id}}/details">
-        <h5>{{title}}</h5>
+        <table class="table-primary"><h5>{{title}}</h5></table>
       </a>
       <p>created: {{createdAt}}</p>
       <p>updated: {{updatedAt}}</p>
@@ -36,7 +47,7 @@
         <a href="/user/{{_id}}/details">
           <h5>{{title}}</h5>
           <form action="/profile/publications/{{_id}}/favouritedelete" method="POST">
-          <button>remove</button>
+          <button>Remove</button>
           </form>
         </a>
       {{/each}}

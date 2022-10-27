@@ -135,7 +135,7 @@ router.post("/login", async (req, res, next) => {
   const emailFormat =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
   if (!emailFormat.test(email)) {
-    res.render("auth/signup.hbs", {
+    res.render("auth/login.hbs", {
       errorMessage: "Incorrect email format",
     });
     
@@ -146,7 +146,7 @@ router.post("/login", async (req, res, next) => {
   const passwordFormat =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
   if (!passwordFormat.test(password)) {
-    res.render("auth/signup.hbs", {
+    res.render("auth/login.hbs", {
       errorMessage:
         "Password should have at least 8 characteres, an uppercase letter and a number",
     });
@@ -187,55 +187,55 @@ router.post("/login", async (req, res, next) => {
 });
 
 
-// * Log In routes
-// GET /auth/login => Renders user login page
-router.get("/login", (req, res, next) => {
-    res.render("auth/login.hbs")
-})
+// // * Log In routes
+// // GET /auth/login => Renders user login page
+// router.get("/login", (req, res, next) => {
+//     res.render("auth/login.hbs")
+// })
 
-// POST /auth/login => Receives user credentials and validate user
-router.post("/login", async (req, res, next) => {
-    const { email, password } = req.body;
+// // POST /auth/login => Receives user credentials and validate user
+// router.post("/login", async (req, res, next) => {
+//     const { email, password } = req.body;
   
-    // Validation 1: fields mustn't be empty
-    if (email === "" || password === "") {
-      res.render("auth/login.hbs", {
-        errorMessage: "All the fields must be completed",
-      });
-      return;
-    }
+//     // Validation 1: fields mustn't be empty
+//     if (email === "" || password === "") {
+//       res.render("auth/login.hbs", {
+//         errorMessage: "All the fields must be completed",
+//       });
+//       return;
+//     }
 
-    try {
-      // Validation 3: User is already registered in the DB
-      const foundUser = await User.findOne({ email: email });
-      if (foundUser === null) {
-        res.render("auth/login.hbs", {
-          errorMessage: "Incorrect credentials",
-        });
-        return;
-      }
+//     try {
+//       // Validation 3: User is already registered in the DB
+//       const foundUser = await User.findOne({ email: email });
+//       if (foundUser === null) {
+//         res.render("auth/login.hbs", {
+//           errorMessage: "Incorrect credentials",
+//         });
+//         return;
+//       }
       
-      // Validation 4: Password is already registered in the DB
-      const validPassword = await bcrypt.compare(password, foundUser.password);
-      if (validPassword === false) {
-        res.render("auth/login.hbs", {
-          errorMessage: "Incorrect credentials",
-        });
-        return;
-      }
+//       // Validation 4: Password is already registered in the DB
+//       const validPassword = await bcrypt.compare(password, foundUser.password);
+//       if (validPassword === false) {
+//         res.render("auth/login.hbs", {
+//           errorMessage: "Incorrect credentials",
+//         });
+//         return;
+//       }
   
-      // Create an active user session
-      req.session.userOnline = foundUser;
+//       // Create an active user session
+//       req.session.userOnline = foundUser;
 
-      // Verifying that the session has been successfully created
-      req.session.save(  () =>  {
-        res.redirect("/");
-      });
+//       // Verifying that the session has been successfully created
+//       req.session.save(  () =>  {
+//         res.redirect("/");
+//       });
 
-    } catch (error) {
-      next(error);
-    }
-  });
+//     } catch (error) {
+//       next(error);
+//     }
+//   });
 
 
 //* Log Out route

@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
 const uploader = require("../middlewares/cloudinary.js");
+const bcrypt = require("bcryptjs");
 
 // Import middlewares
 const {
@@ -10,7 +11,6 @@ const {
   isAdmin,
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
-
 
 // *********************** PROFILE ROUTES *************************************
 // GET /profile => Renders user profile page
@@ -55,8 +55,6 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
 
 // GET /profile/edit => Renders user edit profile page
 router.get("/edit", isUserLoggedIn, (req, res, next) => {
-  //const {userId} = req.params
-
   res.render("profile/edit-profile.hbs", {
     userToEdit: req.session.userOnline,
   });
@@ -130,35 +128,66 @@ router.post(
   }
 );
 
-// // GET /profile/editpassword => Renders profile password edit page
-// router.get("/editpassword", isUserLoggedIn, async (req, res, next) => {
-  
-// const {password} = req.session.userOnline
+// GET /profile/editpassword => Renders profile password edit page
+router.get("/editpassword", isUserLoggedIn, async (req, res, next) => {
+  try {
+    const userOnlinePassword = await User.findById(
+      req.session.userOnline
+    ).select("password");
 
+    res.render("profile/edit-password.hbs", {
+      userPasswordToEdit: userOnlinePassword,
+    });
+  } catch (error) {
+    next;
+  }
+});
 
-//   try {
-//     // Validation 3: User is already registered in the DB
-//     const foundUser = await User.findOne({ password: password });
+// GET /profile/editpassword => Renders profile password edit page
+router.post("/editpassword", isUserLoggedIn, async (req, res, next) => {
+  const { oldpassword, newpassword, repeatnewpassword } = req.body;
 
-//     // Validation 4: Password is already registered in the DB
-//     const validPassword = await bcrypt.compare(password, foundUser.password);
-//     if (validPassword === false) {
-//       res.render("profile/edit-password.hbs", {
-//         errorMessage: "Incorrect credentials",
-//       });
-//       return;
-//     }
+  // Validation 1: fields mustn't be empty
+  if (oldpassword === "" || newpassword === "" || repeatnewpassword === "") {
+    res.render("profile/edit-password.hbs", {
+      errorMessage: "All the fields must be completed",
+    });
+    return;
+  }
 
+  // Validation 2: New passwords must be equal
+  if (newpassword !== repeatnewpassword) {
+    res.render("profile/edit-password.hbs", {
+     errorMessage: "New paswords must be the same",
+   });
+     return;
+   }
 
-//     res.render("profile/edit-password.hbs", {
-//       passwordToEdit: password,
-//     });
+  try {
+    const foundUser = await User.findById(req.session.userOnline).select(
+      "password"
+    );
 
-//   } catch (error) {
-//     next
-//   }
-// });
+    // Validation 3: Compare userOnline Password with the password in hbsInput
+    const validPassword = await bcrypt.compare(oldpassword, foundUser.password);
+    if (validPassword === false) {
+      res.render("profile/edit-password.hbs", {
+        errorMessage: "Incorrect credentials",
+      });
+      return;
+    } else if (validPassword === true && newpassword === repeatnewpassword) {
+      const salt = await bcrypt.genSalt(12);
+      const hashedPassword = await bcrypt.hash(newpassword, salt);
+      const x = await User.findByIdAndUpdate(foundUser, {
+        password: hashedPassword,
+      });
 
+      res.redirect("/logout");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 // *********************** OWN PUBLICATIONS ROUTES *************************************
 // GET "/profile/publications/:publicationId/details" => renders the details of each own publication
