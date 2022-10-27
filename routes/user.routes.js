@@ -11,6 +11,7 @@ const {
   isAdmin,
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
+const { findByIdAndUpdate } = require("../models/User.model");
 
 //* Publication and comment creation routes
 
@@ -294,5 +295,69 @@ router.post(
     }
   }
 );
+
+//* LIKES
+// POST "/user/:publicationId/like" => adds like to the publication counter
+router.post("/:publicationId/like", isUserLoggedIn, async (req, res, next) => {
+  const { publicationId } = req.params;
+
+  try {
+
+    const userOnline = await User.findById(req.session.userOnline._id);
+
+    const options = {
+      $push: { whoLikes: userOnline},
+      $inc: { likes: 1 } 
+    }
+
+    // Checks if user has already given like to the publication and if so, do nothing
+    const increasedLikes = await Publication.findOneAndUpdate(
+      {
+        publicationId,
+        whoLikes: { $ne: userOnline}
+      },
+      options,
+      {new: true}
+    );
+
+    res.redirect("/");
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+// * FRIENDS
+// POST "/user/_userId/add" => changes user friends status
+/* router.post("/:userId/add", async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+    // Current Online User
+    const currentUser = await User.findById(req.session.userOnline._id);
+
+    // Add current online user to friends array of the target user
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { friends: currentUser },
+      $set: {"friends.$.state": "requested" },
+    });
+
+    // Update status of the current online user request in the target user array
+    /* await User.findByIdAndUpdate(
+      userId,
+      { 
+        $set: {"friends.$[element].state": "requested" } 
+      },
+      { 
+        arrayFilters: [{ "element.user._id": {$eq: currentUser._id}}]
+      }
+    ); 
+
+    res.redirect("/");
+
+  } catch (error) {
+    next(error);
+  }
+}); */
 
 module.exports = router;

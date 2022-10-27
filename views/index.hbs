@@ -18,12 +18,15 @@
                         <p>{{content}}</p>
                         <img src="{{file}}" alt="file" width="170px">
                     </div>
-                    <div class="d-flex flex-row justify-content-end">
-                        
-                          <form action="/profile/publications/{{_id}}/favourite" method="POST">
-                        <button>Add favourite</button>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-row justify-content-start">
+                            <form action="/user/{{_id}}/like" method="POST">
+                                <button class="btn btn-block btn-primary"><i class="fa fa-thumbs-up">Like</i></button>
                             </form>
-
+                            <form action="/profile/publications/{{_id}}/favourite" method="POST">
+                                <button class="btn btn-dark">Favourite</button>
+                            </form>
+                        </div>
                         <p class="date">edited on {{updatedAt}}</p>
                     </div>
                 </div>
@@ -50,5 +53,20 @@
             {{/each}}
         </ul>
     </div>
+
+    {{!-- <div id="add-friends" class="d-flex flex-column justify-content-between">
+        <h3>Who to follow</h3>
+        {{#each users}}
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <div id = "user-params" class="d-flex flex-row justify-content-start align-items-center">
+                    <img src="{{profileImage}}" alt="profile-image" width="30px">
+                    <p>{{username}}</p>
+                </div>
+                <form action="/user/{{_id}}/add" method="POST">
+                    <button class="btn btn-dark">Add</button>
+                </form>
+            </div>
+        {{/each}}
+    </div> --}}
 </div>
 

@@ -14,12 +14,12 @@ const {
 // GET /profile => Renders user profile page
 router.get("/", isUserLoggedIn, async (req, res, next) => {
   try {
-    const userOnlineDetails = await User.findById(req.session.userOnline).populate("favourites");
+    const userOnlineDetails = await User.findById(
+      req.session.userOnline
+    ).populate("favourites");
     const publicationUserOnline = await Publication.find({
       user: userOnlineDetails,
     }).populate("user");
-
-    
 
     const clonedPublicationUserOnline = JSON.parse(
       JSON.stringify(publicationUserOnline)
@@ -42,14 +42,10 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
       }).format(new Date(eachPublication.updatedAt));
     });
 
-    
-
     res.render("profile/my-profile.hbs", {
       profileDetails: userOnlineDetails,
       publicationUserOnline: clonedPublicationUserOnline,
     });
-
-
   } catch (error) {
     next(error);
   }
@@ -150,7 +146,7 @@ router.post(
         .populate("publications")
         .select("username favourites");
 
-      console.log(currentUser);
+      res.redirect("/");
     } catch (error) {
       next(error);
     }

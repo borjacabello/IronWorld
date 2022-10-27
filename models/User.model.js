@@ -35,10 +35,18 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Link"
     }],
-    friends: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }],
+    friends: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        state: {
+          type: String,
+          enum: ["add friend", "requested", "pending", "friends"],
+        }
+      }
+    ],
     publications: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Publication"
@@ -47,7 +55,6 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Publication"
     }]
-        
   },
   {   
     timestamps: true
