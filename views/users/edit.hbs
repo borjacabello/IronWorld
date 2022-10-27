@@ -1,29 +1,25 @@
-<div class="col-10 d-flex flex-column align-items-center justify-content-start">
-    <h2>User details: {{userDetails.username}}</h2>
+<div id="user-details" class="col-10 d-flex flex-column align-items-center justify-content-start bg-light">
+    <h2>User: {{userDetails.username}}</h2>
 
     {{!-- Renders user details info in inputs to be able to edit them --}}
     {{#with userDetails}}
     <form action="/admin/users/{{_id}}/edit" method="POST" class="bg-light" enctype="multipart/form-data">
-        
-        
-        <div>
+        <div class="form-user">
             <label for="username" class="form-label">User Name:</label>
             <input type="text" name="username" value="{{username}}" class="form-control">
         </div>
         
-                <div>
+        <div class="form-user">
             <label for="email" class="form-label">Email</label>
             <input type="text" name="email" value="{{email}}" class="form-control">
         </div>
 
-        <div>
+        <div class="form-user">
             <label for="age" class="form-label">Age:</label>
             <input type="number" name="age" value="{{age}}" class="form-control">
         </div>
         
-
-        
-        <div>
+        <div class="form-user">
             <label for="role" class="form-label">Role:</label>
             <select name="role" multiple="true" class="form-select">
             
@@ -34,12 +30,12 @@
             </select>
         </div>
         
-        <div>
+        <div class="form-user">
             <label for="profileImage" class="form-label">Profile Image:</label>
             <input type="file" name="profileImage" value="{{profileImage}}" class="form-control">
         </div>
 
-        <div>
+        <div class="form-user">
             <label for="links" class="form-label">Links:</label>
             <select name="links" multiple="true" class="form-select">
             {{#each links}}
@@ -47,9 +43,10 @@
             {{/each}}
             </select>
         </div>
-        
-        <button class="btn btn-primary">Edit</button>
+
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <button class="btn btn-primary">Edit</button>
+        </div>
     </form>
     {{/with}}
-    
 </div>

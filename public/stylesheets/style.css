@@ -8,7 +8,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100vh;
   width: 100vw; 
-  background-color: #57BBF5;
+  /* background-color: #57BBF5; */
+  background-color:#a5aaa8;
   position: sticky;
 }
 
@@ -332,4 +333,98 @@ h1 {
 /*Log in page render*/
 #log-in-page {
   height: 100%;
+}
+
+/*User List page*/
+#user-list {
+  margin: auto;
+  padding: 20px;
+  height: 80%;
+  width: 45%;
+  border-radius: 30px;
+}
+
+#user-list h2 {
+  font-size: 60px;
+  margin: 5px 0 35px 0;
+}
+
+#user-list p {
+  margin-bottom: 0
+}
+
+#user-list span {
+  font-weight: bold;
+}
+
+#users {
+  width: 100%;
+  padding: 0 25px
+}
+
+#user-list-username {
+  margin-left: 10px;
+}
+
+#user-list-buttons {
+  width: 40%;
+}
+
+
+/* User edit page */
+#user-details {
+  margin: auto;
+  padding: 20px;
+  height: 80%;
+  width: 45%;
+  border-radius: 30px;
+}
+
+#user-details h2 {
+  font-size: 60px;
+  margin: 5px 0 20px 0;
+}
+
+.form-user {
+  margin: 10px auto;
+}
+
+.form-user label {
+  font-size: 20px;
+}
+
+/* Approved/Pending lists */
+.list {
+  margin: auto;
+  padding: 10px 20px;
+  height: 90%;
+  width: 38%;
+  border-radius: 20px;
+}
+
+.list h2 {
+  font-size: 35px;
+  margin: 0
+}
+
+.list-publication-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 5px
+}
+
+.list-publication-items p {
+  font-weight: 600;
+  margin: 0 5px;
+}
+
+.list-publication-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
 }

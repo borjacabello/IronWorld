@@ -1,43 +1,49 @@
 {{! *************** APPROVED LIST *************** }}
 
-<div class="col-5 d-flex flex-column align-items-start justify-content-start">
+<div class="list col-5 d-flex flex-column align-items-center justify-content-start bg-light">
   <h2>APPROVED</h2>
   <p style="color: darkblue;">{{emptyMessageApproved}}</p>
   {{! Display approved, edit and delete buttons in the publications list }}
   {{#each approvedList}}
-    <div class="d-flex flex-row justify-content-start">
+    <div class="list-publication-items">
       <p>{{title}}</p>
-      <form action="/admin/publications/{{_id}}/cancel" method="POST">
-        <button>Cancel</button>
-      </form>
-      <a href="/admin/publications/{{_id}}/edit">
-        <button>Edit</button>
-      </a>
-      <form action="/admin/publications/{{_id}}/delete" method="POST">
-        <button>Delete</button>
-      </form>
+      <div class="list-publication-buttons">
+        <form action="/admin/publications/{{_id}}/cancel" method="POST">
+          <button class="btn btn-light">Cancel</button>
+        </form>
+        <a href="/admin/publications/{{_id}}/edit">
+          <button class="btn btn-secondary">Edit</button>
+        </a>
+        <form action="/admin/publications/{{_id}}/delete" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
     </div>
-  {{/each}}
+    <div class="separator"></div>
+    {{/each}}
 </div>
 
 {{! *************** PENDING LIST *************** }}
 
-<div class="col-5 d-flex flex-column align-items-start justify-content-start">
+<div class="list col-5 d-flex flex-column align-items-center justify-content-start bg-light">
     <h2>PENDING</h2>
     <p style="color: darkblue;">{{emptyMessagePending}}</p>
-    {{!-- Display pending, edit and delete buttons in the publications list --}}
-    {{#each pendingList}}
-        <div class="d-flex flex-row justify-content-start">
-            <p>{{title}}</p>
+      {{!-- Display pending, edit and delete buttons in the publications list --}}
+      {{#each pendingList}}
+      <div class="list-publication-items">  
+          <p>{{title}}</p>
+          <div class="list-publication-buttons">
             <form action="/admin/publications/{{_id}}/approval" method="POST">
-                <button>Approve</button>
+              <button class="btn btn-light">Approve</button>
             </form>
             <a href="/admin/publications/{{_id}}/edit">
-                <button class="btn btn-primary">Edit</button>
+              <button class="btn btn-secondary">Edit</button>
             </a>
             <form action="/admin/publications/{{_id}}/delete" method="POST">
-                <button class="btn btn-primary">Delete</button>
+              <button class="btn btn-danger">Delete</button>
             </form>
-        </div>
-    {{/each}}
+            </div>
+      </div>
+      <div class="separator"></div>
+      {{/each}}
 </div>

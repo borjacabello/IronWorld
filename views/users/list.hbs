@@ -1,16 +1,23 @@
-<div id="user-list" class="col-10 d-flex flex-column align-items-start justify-content-start">
-    <h2>User list</h2>
+<div id="user-list" class="col-10 d-flex flex-column align-items-center justify-content-start bg-light">
+    <h2>User List</h2>
 
     {{!-- Display approve, edit and delete buttons in the user list --}}
     {{#each userList}}
-        <div class="d-flex flex-row justify-content-start">
-            <p>{{username}}</p>
-            <a href="/admin/users/{{_id}}/edit">
-                <button>Edit</button>
-            </a>
-            <form id="delete-user-form" action="/admin/users/{{_id}}/delete" method="POST">
-                <button>Delete</button>
-            </form>
+        <div id = "users" class="d-flex flex-row justify-content-between align-items-center">
+            <div class="d-flex flex-row justify-content-around align-items-center">
+                <p><span>User:</span></p>
+                <p id="user-list-username">{{username}}</p>
+            </div>
+            
+            <div id="user-list-buttons" class="d-flex flex-row justify-content-between">
+                <a href="/admin/users/{{_id}}/edit">
+                    <button class="btn btn-secondary">Edit</button>
+                </a>
+                <form action="/admin/users/{{_id}}/delete" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
         </div>
+        <div class="separator"></div>
     {{/each}}
 </div>
