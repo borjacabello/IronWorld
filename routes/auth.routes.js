@@ -35,6 +35,13 @@ router.post("/signup", uploader.single("profileImage"), async (req, res, next) =
     return;
   }
 
+  // Validation 2 : age value between 18 - 120
+  if(age < 18 || age > 120) {
+    res.render("auth/signup.hbs", {
+      errorMessage: "Age must be between 18 to 120",
+    });
+  }
+
   // Validation 3: Email format validation
   const emailFormat =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
@@ -120,14 +127,6 @@ router.post("/login", async (req, res, next) => {
       });
       return;
     }
-    
-        // Validation 2 : age value between 18 - 120
-        if(age < 18 || age > 120) {
-          res.render("profile/edit-profile.hbs", {
-            userToEdit: req.session.userOnline,
-            errorMessage: "Age must be between 18 to 120",
-          });
-        }
 
     try {
       // Validation 3: User is already registered in the DB
