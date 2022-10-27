@@ -32,6 +32,9 @@ router.get("/", async (req, res, next) => {
         dateStyle: "short"
       })
       .format(new Date(eachPublication.updatedAt))
+
+      // Comments counter
+      eachPublication.commentCounter = eachPublication.comments.length;
     })
 
     // API jobs     ---  / ---  const jobOffers = await Jobapi.find()  => copy data if api doesnt work

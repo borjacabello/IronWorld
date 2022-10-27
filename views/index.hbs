@@ -8,8 +8,16 @@
                 <a id="new-details-link" href="/user/{{_id}}/details" class="d-flex flex-row">
                 <img class="news-profile-image" src="{{user.profileImage}}" alt="profile-image">
                 <div class="news-items d-flex flex-column">
-                    <div class="d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
                         <p><span>{{user.username}}</span></p>
+                        <div id ="like-items" class="d-flex flex-row justify-content-between align-items-center">
+                            <img id="like" src="../images/like.png" alt="like" width="15px">
+                            <p id = "likes-count">{{likes}}</p>
+                        </div>
+                        <div id = "comment-items" class="d-flex flex-row justify-content-between align-items-center">
+                            <img id="comment-icon" src="../images/comment.png" alt="like" width="20px">
+                            <p>{{commentCounter}}</p>
+                        </div>
                         <p class="date">created on {{createdAt}}</p>
                     </div>
                     <div class="separator"></div>
@@ -20,7 +28,7 @@
                     </div>
                     <div class="d-flex flex-row justify-content-between align-items-center">
                         <div class="d-flex flex-row justify-content-start">
-                            <p>{{likes}}</p>
+                            
                             <form action="/user/{{_id}}/like" method="POST">
                                 <button class="btn btn-block btn-primary">Like</button>
                             </form>

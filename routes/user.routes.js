@@ -152,10 +152,6 @@ router.get(
         }).format(new Date(eachComment.updatedAt));
       });
 
-      clonedPublication.comments.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-
       clonedPublication.comments.forEach((eachComment) => {
         if (
           req.session.userOnline.role === "admin" ||
@@ -182,9 +178,11 @@ router.get(
         dateStyle: "short",
       }).format(new Date(clonedPublication.updatedAt));
 
+
       res.render("publications/main-details.hbs", {
         clonedPublication,
       });
+
     } catch (error) {
       next(error);
     }
