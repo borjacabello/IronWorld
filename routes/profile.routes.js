@@ -96,10 +96,6 @@ router.post(
       });
     }
 
-   
-    
-
-    
 
     try {
       //Validation 4: User doesn't already exists in the DB
