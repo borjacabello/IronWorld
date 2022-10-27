@@ -38,8 +38,10 @@ router.get("/", async (req, res, next) => {
     })
 
     // new variable to show outstanding publications
-    const clonedPublicationsToSort = structuredClone(clonedPublications)
-    const sortedPublicationsByLikes = clonedPublicationsToSort.sort( (a, b) => a.likes - b.likes )
+    const clonedPublicationsToSort = JSON.parse(JSON.stringify(clonedPublications))
+    const sortedPublications = clonedPublicationsToSort.sort( (a, b) => b.likes - a.likes )
+    const sortedPublicationsByLikes = sortedPublications.slice(0, 5)
+
 
     // API jobs     ---  / ---  const jobOffers = await Jobapi.find()  => copy data if api doesnt work
     const url = 'https://tech-job-search-api.p.rapidapi.com/';

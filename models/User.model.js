@@ -35,18 +35,6 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Link"
     }],
-    friends: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        state: {
-          type: String,
-          enum: ["add friend", "requested", "pending", "friends"],
-        }
-      }
-    ],
     publications: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Publication"

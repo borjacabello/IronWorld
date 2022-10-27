@@ -67,7 +67,18 @@
     </div>
 
     <div class="d-flex flex-column align-items-center justify-content around">
-
+        <h3>Most liked publications</h3>
+        {{#each sortedPublicationsByLikes}}
+            {{#if approved}}
+            <div class="d-flex flex-row justify-content-between">
+                <a href="/user/{{_id}}/details">{{title}}</a>
+                <div class="d-flex flex-row justify-content-start">
+                    <img id="like" src="../images/like.png" alt="like" width="15px">
+                    <p id = "likes-count">{{likes}}</p>
+                </div>
+            </div>
+            {{/if}}
+        {{/each}}
     </div>
 </div>
 
