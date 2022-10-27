@@ -121,7 +121,7 @@ router.get("/login", (req, res, next) => {
 
 // POST /auth/login => Receives user credentials and validate user
 router.post("/login", async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password} = req.body;
 
   // Validation 1: fields mustn't be empty
   if (email === "" || password === "") {
@@ -131,24 +131,7 @@ router.post("/login", async (req, res, next) => {
     return;
   }
 
-<<<<<<< HEAD
-  // Validation 2: username should at least contain 4 characters
-  if (username.length < 4) {
-    res.render("auth/signup.hbs", {
-      errorMessage: "Username must contain at least 4 characters",
-    });
-   
-    return;
-  }
-
-  // Validation 2 : age value between 18 - 120
-  if(age < 18 || age > 120) {
-    res.render("auth/signup.hbs", {
-      errorMessage: "Age must be between 18 to 120",
-    });
-  }
-
-  // Validation 3: Email format validation
+   // Validation 3: Email format validation
   const emailFormat =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
   if (!emailFormat.test(email)) {
@@ -172,8 +155,6 @@ router.post("/login", async (req, res, next) => {
   }
 
   // Async
-=======
->>>>>>> 2454049 (Cloudinary profileImage Fixed)
   try {
     // Validation 3: User is already registered in the DB
     const foundUser = await User.findOne({ email: email });

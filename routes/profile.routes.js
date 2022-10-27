@@ -119,7 +119,7 @@ router.post(
         {
           username,
           age,
-          ProfileImage: req.file?.path,
+          profileImage: req.file?.path,
         },
         { new: true }
       );
