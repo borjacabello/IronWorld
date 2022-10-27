@@ -120,9 +120,17 @@ router.post("/login", async (req, res, next) => {
       });
       return;
     }
-  
+    
+        // Validation 2 : age value between 18 - 120
+        if(age < 18 || age > 120) {
+          res.render("profile/edit-profile.hbs", {
+            userToEdit: req.session.userOnline,
+            errorMessage: "Age must be between 18 to 120",
+          });
+        }
+
     try {
-      // Validation 2: User is already registered in the DB
+      // Validation 3: User is already registered in the DB
       const foundUser = await User.findOne({ email: email });
       if (foundUser === null) {
         res.render("auth/login.hbs", {
@@ -130,8 +138,8 @@ router.post("/login", async (req, res, next) => {
         });
         return;
       }
-  
-      // Validation 3: Password is already registered in the DB
+      
+      // Validation 4: Password is already registered in the DB
       const validPassword = await bcrypt.compare(password, foundUser.password);
       if (validPassword === false) {
         res.render("auth/login.hbs", {

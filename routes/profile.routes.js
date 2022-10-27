@@ -51,6 +51,87 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
   }
 });
 
+// GET /profile/:userId/edit => Renders user edit profile page
+router.get("/edit", isUserLoggedIn, (req, res, next) => {
+  //const {userId} = req.params
+
+  res.render("profile/edit-profile.hbs", {
+    userToEdit: req.session.userOnline,
+  });
+});
+
+// GET /profile/:userId/edit => edit the profile page, and redirect to profile
+router.post(
+  "/edit",
+  isUserLoggedIn,
+  uploader.single("profileImage"),
+  async (req, res, next) => {
+    const { username, email, age } = req.body;
+
+    // Validation 1: All the fields must not be empty
+    if (username === "" || age === "" || email === "") {
+      res.render("profile/edit-profile.hbs", {
+        userToEdit: req.session.userOnline,
+        errorMessage: "All the fields must be completed",
+      });
+
+      return;
+    }
+
+    // Validation 2: username should at least contain 4 characters
+    if (username.length < 4) {
+      res.render("profile/edit-profile.hbs", {
+        userToEdit: req.session.userOnline,
+        errorMessage: "Username must contain at least 4 characters",
+      });
+
+      return;
+    }
+
+    // Validation 3 : age value between 18 - 120
+    if(age < 18 || age > 120) {
+      res.render("profile/edit-profile.hbs", {
+        userToEdit: req.session.userOnline,
+        errorMessage: "Age must be between 18 to 120",
+      });
+    }
+
+   
+    
+
+    
+
+    try {
+      //Validation 4: User doesn't already exists in the DB
+      const foundUser = await User.findOne({ username: username });
+      if (
+        foundUser !== null &&
+        foundUser.username !== req.session.userOnline.username
+      ) {
+        res.render("profile/edit-profile.hbs", {
+          userToEdit: req.session.userOnline,
+          errorMessage:
+            "Username has been already registered in the website. Choose another",
+        });
+
+        return;
+      }
+
+      await User.findByIdAndUpdate(
+        req.session.userOnline,
+        {
+          username,
+          age,
+          ProfileImage: req.profileImage?.path,
+        },
+        { new: true }
+      );
+      res.redirect("/profile");
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 // *********************** OWN PUBLICATIONS ROUTES *************************************
 // GET "/profile/publications/:publicationId/details" => renders the details of each own publication
 router.get(
@@ -146,7 +227,11 @@ router.post(
         .populate("publications")
         .select("username favourites");
 
+<<<<<<< HEAD
       res.redirect("/")
+=======
+      res.redirect("/");
+>>>>>>> 8daf471 (edit profile with validators added)
     } catch (error) {
       next(error);
     }
@@ -163,13 +248,14 @@ router.post(
     try {
       const currentPublication = await Publication.findById(publicationId);
       const userOnline = await User.findById(req.session.userOnline);
-      const currentUser = await User.findByIdAndUpdate(userOnline, {$pull: {favourites: publicationId}})
-        .select("username favourites")
+      const currentUser = await User.findByIdAndUpdate(userOnline, {
+        $pull: { favourites: publicationId },
+      }).select("username favourites");
 
       console.log(currentUser);
-      console.log(currentPublication)
-      
-      res.redirect("/profile")
+      console.log(currentPublication);
+
+      res.redirect("/profile");
     } catch (error) {
       next(error);
     }
