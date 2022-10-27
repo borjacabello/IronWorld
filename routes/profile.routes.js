@@ -146,10 +146,38 @@ router.post(
         .populate("publications")
         .select("username favourites");
 
+<<<<<<< HEAD
       res.redirect("/");
+=======
+      res.redirect("/")
+>>>>>>> becf834 (delete favourites function added)
     } catch (error) {
       next(error);
     }
   }
 );
+
+// POST "/profile/publications/:publicationId/favouritedelete => add publication to UserOnline.favourite properties
+router.post(
+  "/publications/:publicationId/favouritedelete",
+  isUserLoggedIn,
+  async (req, res, next) => {
+    const { publicationId } = req.params;
+
+    try {
+      const currentPublication = await Publication.findById(publicationId);
+      const userOnline = await User.findById(req.session.userOnline);
+      const currentUser = await User.findByIdAndUpdate(userOnline, {$pull: {favourites: publicationId}})
+        .select("username favourites")
+
+      console.log(currentUser);
+      console.log(currentPublication)
+      
+      res.redirect("/profile")
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 module.exports = router;

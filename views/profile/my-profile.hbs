@@ -29,6 +29,9 @@
       {{#each profileDetails.favourites}}
         <a href="/user/{{_id}}/details">
           <h5>{{title}}</h5>
+          <form action="/profile/publications/{{_id}}/favouritedelete" method="POST">
+          <button>remove</button>
+          </form>
         </a>
       {{/each}}
     </div>
