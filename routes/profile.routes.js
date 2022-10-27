@@ -11,6 +11,8 @@ const {
   isModeratorOrAdmin,
 } = require("../middlewares/auth.middlewares.js");
 
+
+// *********************** PROFILE ROUTES *************************************
 // GET /profile => Renders user profile page
 router.get("/", isUserLoggedIn, async (req, res, next) => {
   try {
@@ -51,7 +53,7 @@ router.get("/", isUserLoggedIn, async (req, res, next) => {
   }
 });
 
-// GET /profile/:userId/edit => Renders user edit profile page
+// GET /profile/edit => Renders user edit profile page
 router.get("/edit", isUserLoggedIn, (req, res, next) => {
   //const {userId} = req.params
 
@@ -60,7 +62,7 @@ router.get("/edit", isUserLoggedIn, (req, res, next) => {
   });
 });
 
-// GET /profile/:userId/edit => edit the profile page, and redirect to profile
+// GET /profile/edit => edit the profile page, and redirect to profile
 router.post(
   "/edit",
   isUserLoggedIn,
@@ -89,13 +91,12 @@ router.post(
     }
 
     // Validation 3 : age value between 18 - 120
-    if(age < 18 || age > 120) {
+    if (age < 18 || age > 120) {
       res.render("profile/edit-profile.hbs", {
         userToEdit: req.session.userOnline,
         errorMessage: "Age must be between 18 to 120",
       });
     }
-
 
     try {
       //Validation 4: User doesn't already exists in the DB
@@ -118,7 +119,7 @@ router.post(
         {
           username,
           age,
-          ProfileImage: req.profileImage?.path,
+          profileImage: req.file?.path,
         },
         { new: true }
       );
@@ -128,6 +129,37 @@ router.post(
     }
   }
 );
+
+// // GET /profile/editpassword => Renders profile password edit page
+// router.get("/editpassword", isUserLoggedIn, async (req, res, next) => {
+  
+// const {password} = req.session.userOnline
+
+
+//   try {
+//     // Validation 3: User is already registered in the DB
+//     const foundUser = await User.findOne({ password: password });
+
+//     // Validation 4: Password is already registered in the DB
+//     const validPassword = await bcrypt.compare(password, foundUser.password);
+//     if (validPassword === false) {
+//       res.render("profile/edit-password.hbs", {
+//         errorMessage: "Incorrect credentials",
+//       });
+//       return;
+//     }
+
+
+//     res.render("profile/edit-password.hbs", {
+//       passwordToEdit: password,
+//     });
+
+//   } catch (error) {
+//     next
+//   }
+// });
+
+
 // *********************** OWN PUBLICATIONS ROUTES *************************************
 // GET "/profile/publications/:publicationId/details" => renders the details of each own publication
 router.get(
