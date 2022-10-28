@@ -1,27 +1,28 @@
-<div id="sign-up-page" class="col-10 d-flex flex-column align-items-center justify-content-center">
-  <h2 class="mb-3">Edit your Profile</h2>
+<div id="profile-edit-div" class="col-10 d-flex flex-column align-items-center justify-content-start bg-light">
+  <h2>Edit your Profile</h2>
 
-<form action="/profile/edit" method="POST" enctype="multipart/form-data">
-{{#with userToEdit}}
-  <div class="mb-3">
-    <label for="username" class="form-label">User Name</label>
-    <input type="text" class="form-control" value="{{username}}" name="username" id="exampleInputEmail1" aria-describedby="emailHelp">
-     </div>
+  <form action="/profile/edit" method="POST" enctype="multipart/form-data">
+    {{#with userToEdit}}
+      <div class="edit-profile-divider">
+        <label for="username" class="form-label">User Name</label>
+        <input type="text" class="form-control" value="{{username}}" name="username" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
 
-  <div class="mb-3">
-    <label for="age" class="form-label">age</label>
-    <input type="number" min="0" max="120" value="{{age}}" class="form-control" name="age" id="exampleInputEmail1" aria-describedby="emailHelp">
-  </div>
+      <div class="edit-profile-divider">
+        <label for="age" class="form-label">Age</label>
+        <input type="number" min="0" max="120" value="{{age}}" class="form-control" name="age" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
 
-  <div class="mb-3">
-    <label for="profileImage" class="form-label">Add Picture</label>
-    <input type="file" value="{{profileImage}}" class="form-control" name="profileImage" id="exampleInputEmail1" aria-describedby="emailHelp">
-  </div>
-
-
-{{/with}}
-<p style="color: red">{{errorMessage}}</p>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<a href="/profile"> <button class="btn btn-primary">Go Back</button></a>
+      <div class="edit-profile-divider">
+        <label for="profileImage" class="form-label">Add Picture</label>
+        <input type="file" value="{{profileImage}}" class="form-control" name="profileImage" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+    {{/with}}
+    <p style="color: red">{{errorMessage}}</p>
+    <div class="d-flex flex-row align-items-center justify-content-around">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a href="/profile"> <button class="btn btn-secondary">Go Back</button></a>
+    </div>
+  </form>
+  
 </div>

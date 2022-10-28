@@ -118,8 +118,11 @@ h1 {
   width: 50%
 }
 
-#iron-world {
-  color: #212353;
+#iron-world-logo {
+  width: 250px;
+  height: auto;
+  margin: -50px 0 -25px 0;
+  padding: 0
 }
 
 .news {
@@ -502,4 +505,96 @@ h1 {
 
 #pubs {
   width: 70%;
+}
+
+
+/* Main profile page */
+#profile-page {
+  width: 80%;
+  margin: 0;
+}
+
+#profile-page h2 {
+  margin: 0 0 10px 0;
+}
+
+#profile-user-age {
+  margin: 20px auto 15px;
+  width: 100%;
+}
+
+#profile-user-age p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#edit-profile-group {
+  margin: 0 auto 30px;
+}
+
+#profile-posts {
+  width: 80%;
+}
+
+.profile-columns {
+  width: 40%;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.profile-columns a {
+  text-decoration: none;
+}
+
+/* Edit profile page */
+#profile-edit-div {
+  width: 50%;
+  height: 60%;
+  margin: auto;
+  border-radius: 20px;
+}
+
+#profile-edit-div label {
+  font-size: 20px;
+}
+
+#profile-edit-div h2 {
+  margin: 30px auto;
+}
+
+.edit-profile-divider {
+  margin: 15px auto;
+}
+
+/* Edit email page */
+#edit-email-page {
+  width: 40%;
+  height: 60%;
+  margin: auto;
+  border-radius: 20px;
+}
+
+#edit-email-page h2 {
+  margin: 30px auto;
+}
+
+#edit-email-page label {
+  font-size: 18px;
+}
+
+
+/* Edit password page */
+#password-edit-div {
+  width: 40%;
+  height: 60%;
+  margin: auto;
+  border-radius: 20px;
+}
+
+#password-edit-div h2 {
+  margin: 30px auto;
+}
+
+#password-edit-div label {
+  font-size: 18px;
 }

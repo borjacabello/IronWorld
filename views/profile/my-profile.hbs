@@ -1,58 +1,54 @@
-<div class="col-10 d-flex flex-column align-items-start justify-content-start">
+<div id="profile-page" class="col-10 d-flex flex-column align-items-center justify-content-start">
 
-  <div class="col-5 d-flex flex-column align-items-start justify-content-start">
-
+  <div class="d-flex flex-column align-items-center justify-content-start">
     {{#with profileDetails}}
-      <h2>User Profile: {{username}}</h2>
-      <img src="{{profileImage}}" alt="profile-image" width="180px" />
-      <p>Email: {{email}}</p>
-      <p>Age: {{age}}</p>
-      
+      <h2>User Profile</h2>
+      <img src="{{profileImage}}" alt="profile-image" width="100px" />
+      <div id="profile-user-age" class="d-flex flex-column align-items-center">
+        <p>User: {{username}}</p>
+        <div class="separator"></div>
+        <p>Age: {{age}}</p>
+      </div>
     {{/with}}
-
-
-     
   </div>
 
-<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <div class="btn-group" role="group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Edit
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/profile/edit">Profile</a></li>
-      <li><a class="dropdown-item" href="/profile/edit/email">Email</a></li>
-      <li><a class="dropdown-item" href="/profile/editpassword">Password</a></li>
-
-    </ul>
+  <div id="edit-profile-group" class="btn-group" role="group" aria-label="Button group with nested dropdown">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Edit
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/profile/edit">Profile</a></li>
+        <li><a class="dropdown-item" href="/profile/edit/email">Email</a></li>
+        <li><a class="dropdown-item" href="/profile/editpassword">Password</a></li>
+      </ul>
+    </div>
   </div>
-</div>
 
-  <div class="col-5 d-flex flex-row align-items-start justify-content-between">
-    <div>
+  <div id="profile-posts" class="d-flex flex-row align-items-start justify-content-around">
+    <div class="profile-columns d-flex flex-column align-items-start justify-content-start bg-light">
     <h4>Own Posts</h4>
     {{#each publicationUserOnline}}
       <a href="/profile/publications/{{_id}}/details">
         <table class="table-primary"><h5>{{title}}</h5></table>
       </a>
       <p>created: {{createdAt}}</p>
-      <p>updated: {{updatedAt}}</p>
-
+      <div class="separator"></div>
     {{/each}}
     </div>
-    <div class="col-5 d-flex flex-column align-items-start justify-content-start">
-      <h4>Favourite Posts</h4>
 
+    <div class="profile-columns d-flex flex-column align-items-start justify-content-start bg-light">
+      <h4>Favourite Posts</h4>
       {{#each profileDetails.favourites}}
         <a href="/user/{{_id}}/details">
           <h5>{{title}}</h5>
           <form action="/profile/publications/{{_id}}/favouritedelete" method="POST">
-          <button>Remove</button>
+            <button>Remove</button>
           </form>
         </a>
+        <div class="separator"></div>
       {{/each}}
     </div>
-
   </div>
 
 </div>
