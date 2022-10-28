@@ -55,10 +55,11 @@ List of other features outside of the MVPs scope
 
 ## ROUTES:
 
+Index routes:
 - GET / 
   - renders the homepage
-  - publications (find, approved publications with middleware)
-    - publications will have a button for add comment
+
+Auth routes:
 - GET /auth/signup
   - renders the signup form in a new page
 - POST /auth/signup
@@ -67,45 +68,67 @@ List of other features outside of the MVPs scope
     - username
     - email
     - password
-{{{- GET /auth/login
+- GET /auth/login
   - renders the login form in the home page}}}
 - POST /auth/login
   - redirects to / if user logged in
   - body:
     - email
     - password
-- POST /auth/logout
+- GET /auth/logout
   - redirects to / if user logged in
 
+User routes:
+- GET "/user/publication/create"
+  - renders a form for create a new publication
+- POST "/user/publication/create"
+  - creates a new publication for a user in the DB
+- GET "/user/search-publication"
+  - renders searched publications page from "/"
+- GET "/user/:publicationId/details"
+  - renders publication details page from "/"
+- POST "/user/comment/create"
+  - creates a new coment for a publication in the DB
+- GET "/users/:commentId/edit"
+  - renders comment details page to edit comment information
+- POST "/users/:commentId/edit"
+  - updates comment message and renders it
+- POST "/users/:commentId/delete"
+  - updates comment message and renders it
+- POST "/user/:publicationId/like"
+  - adds like to the likes publication counter and adds user to the whoLikes array
+- POST "/user/:publicationId/unlike"
+  - removes like from the likes publication counter and removes user from the whoLikes array
 
-- POST /user/:publicationId/create
-  - creates a new publication in the DB (pending for approval)
-  - redirects to /
-
-
+Profile routes:
 - GET /profile
- - renders the profile in a new page
-    - profileImage
-    - username
-    - email
-    - user publications (from Publications)
-    - edit profile button
-    - add personal links button
+  - renders the profile in a new page
 - GET /profile/edit
-  - renders the profile edit page
+  - Renders user edit profile page
 - POST /profile/edit
-  - profileImage
-  - email
-  - old password
-  - new password
-  - redirect to /profile
-- GET /profile/links
-  - renders profile links addition form
-- POST /profile/links
-  - creates new link
-  - redirect to /profile
+  - edit the profile page, and redirect to profile
+- GET /profile/editpassword
+  - Renders profile password edit page
+- POST /profile/editpassword
+  - Renders profile password edit page
+- GET /profile/edit/email
+  - Renders profile email edit page
+- POST /profile/edit/email
+  - Renders profile email edit page
+- GET "/profile/publications/:publicationId/details"
+  - renders the details of each own publication
+- POST "/profile/publications/:publicationId/delete"
+  - deletes the current own publication
+- GET "/profile/publications/:publicationId/edit"
+  - renders profile own publication to edit
+- POST "/profile/publications/:publicationId/edit"
+  - renders profile own publication to edit
+- POST "/profile/publications/:publicationId/favourite
+  - add publication to UserOnline.favourite properties
+- POST "/profile/publications/:publicationId/favouritedelete
+  - add publication to UserOnline.favourite properties
 
-
+Admin routes:
 - GET /admin/users
   - renders user list for the admin
 - GET /admin/users/:userId/edit
@@ -125,8 +148,10 @@ List of other features outside of the MVPs scope
   - redirects to the user list
 - GET /admin/publications
   - renders publications list for the admin
-- GET /admin/publications/:publicationId/details
-  - renders publication details
+- POST "/admin/publications/:publicationId/approval"
+  - approves current publication to be added to the index page list
+- POST "/admin/publications/:publicationId/cancel"
+  - cancels current publication to be added to the index page list
 - GET /admin/publications/:publicationId/edit
   - renders publication edit form
 - POST /admin/publications/:publicationId/edit
@@ -140,10 +165,7 @@ List of other features outside of the MVPs scope
   - redirects to the publications list
 - POST /admin/publications/:publicationId/approval
   - add a publication to the list
-  - redirects to the publication list****
-
-
-- 
+  - redirects to the publication list
 
 ## Models
 
@@ -192,20 +214,12 @@ edited: Boolean
 
 ## Links
 
-### Trello
-
-[Link to your trello board](https://trello.com) or picture of your physical board
-
 ### Git
 
-The url to your repository and to your deployed project
+[https://github.com/borjacabello/IronWorld]
 
-[Repository Link](http://github.com)
-
-[Deploy Link](http://heroku.com)
+[https://ironworld.cyclic.app]
 
 ### Slides
 
-The url to your presentation slides
-
-[Slides Link](http://slides.com)
+[Slides Link]

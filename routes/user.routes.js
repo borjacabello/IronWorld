@@ -276,7 +276,7 @@ router.post(
   }
 );
 
-// POST "/users/:commentId/edit" => updates comment message and renders it
+// POST "/users/:commentId/delete" => updates comment message and renders it
 router.post(
   "/:publicationId/:commentId/delete",
   isUserLoggedIn,
