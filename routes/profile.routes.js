@@ -160,8 +160,8 @@ router.post("/editpassword", isUserLoggedIn, async (req, res, next) => {
   // Validation 3: Password format validation
   const passwordFormat =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  if (!passwordFormat.test(password)) {
-    res.render("auth/signup.hbs", {
+  if (!passwordFormat.test(newpassword)) {
+    res.render("profile/edit-password.hbs", {
       errorMessage:
         "Password should have at least 8 characteres, an uppercase letter and a number",
     });
@@ -188,7 +188,7 @@ router.post("/editpassword", isUserLoggedIn, async (req, res, next) => {
         password: hashedPassword,
       });
 
-      res.redirect("/logout");
+      res.redirect("/profile");
     }
   } catch (error) {
     next(error);

@@ -40,12 +40,14 @@
     <div class="profile-columns d-flex flex-column align-items-start justify-content-start bg-light">
       <h4>Favourite Posts</h4>
       {{#each profileDetails.favourites}}
+      <div id="favorite-buttons" class="d-flex flex-row justify-content-between align-items-center">
         <a href="/user/{{_id}}/details">
           <h5>{{title}}</h5>
-          <form action="/profile/publications/{{_id}}/favouritedelete" method="POST">
-            <button>Remove</button>
-          </form>
         </a>
+        <form action="/profile/publications/{{_id}}/favouritedelete" method="POST">
+          <button class="btn btn-danger">Remove</button>
+        </form>
+      </div>
         <div class="separator"></div>
       {{/each}}
     </div>

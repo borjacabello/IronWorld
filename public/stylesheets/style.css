@@ -182,6 +182,10 @@ h1 {
   font-weight: bold;
 }
 
+#favorite-buttons {
+  width: 80%;
+}
+
 #latest-title {
   background-color:#ffc5c5;
   opacity: 0.7;
@@ -382,7 +386,7 @@ h1 {
 
 /*Sign up page render*/
 #sign-up-page {
-  height: 70%;
+  height: 95%;
   width: 46%;
   margin: auto;
   padding: 25px;
@@ -408,7 +412,7 @@ h1 {
 
 /*Log in page render*/
 #log-in-page {
-  height: 50%;
+  height: 80%;
   width: 46%;
   margin: auto;
   padding: 25px;
@@ -618,7 +622,7 @@ h1 {
 /* Edit email page */
 #edit-email-page {
   width: 40%;
-  height: 60%;
+  height: 80%;
   margin: auto;
   border-radius: 20px;
 }
@@ -635,7 +639,7 @@ h1 {
 /* Edit password page */
 #password-edit-div {
   width: 40%;
-  height: 60%;
+  height: 80%;
   margin: auto;
   border-radius: 20px;
 }
