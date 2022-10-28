@@ -222,4 +222,4 @@ edited: Boolean
 
 ### Slides
 
-[Slides Link]
+[https://docs.google.com/presentation/d/1xxXK4X910YBhBRdxQKJMVCh7iL-HYggtvkBlpT4unqE/edit?usp=sharing]
