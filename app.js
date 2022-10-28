@@ -33,8 +33,7 @@ app.use((req, res, next) => {
     res.locals.isUserActive = true;
     // Create a global variable to access user properties at any file
     res.locals.currentUser = req.session.userOnline;
-    //console.log(req.session.userOnline);
-    //console.log(res.locals.currentUser)
+
     if (
       req.session.userOnline.role === "admin" || req.session.userOnline.role === "moderator"
     ) {
