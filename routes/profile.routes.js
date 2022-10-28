@@ -226,7 +226,7 @@ router.post("/edit/email", isUserLoggedIn, async (req, res, next) => {
   // Validation 3: Email format validation
    const emailFormat =
      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-   if (!emailFormat.test(oldemail) || !emailFormat.test(newemail) || !emailFormat.test(repeatemail)) {
+   if (!emailFormat.test(newemail)) {
      res.render("profile/edit-email.hbs", {
        errorMessage: "Incorrect email format",
      });
