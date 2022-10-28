@@ -17,7 +17,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    allowedFormats: ["jpg", "png", "svg"],
+    allowedFormats: ["jpg", "png", "svg", "mp4"],
     folder: "ironpictures"
   }
 })

@@ -2,40 +2,56 @@
 
 ## Description
 
-Describe your project in one/two lines.
+IronWorld is an Ironhack-based on social network which allows 
+current and old Ironhack students to be connected through
+post publications while getting access to resources like job offers and others which are managed by moderators and admins.
  
 ## User Stories
 
-- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
-- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
-- **homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup
-- **sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend
-- **login** - As a user I want to be able to log in on the webpage so that I can get back to my account
-- **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
-- **events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
-- **events create** - As a user I want to create an event so that I can invite others to attend
-- **events detail** - As a user I want to see the event details and attendee list of one event so that I can decide if I want to attend 
-- **event attend** - As a user I want to be able to attend to event so that the organizers can count me in
+- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault.
+- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault.
+- **homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup.
+- **sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend.
+- **login** - As a user I want to be able to log in on the webpage so that I can get back to my account.
+- **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account.
+- **posts list** - As a user I want to be able to see all
+the posts that registered people have done.
+- **navigation bar** - As a user I want to see a navigation
+bar which contains all the pages I can access to.
+- **post create** - As a user I want to be able to create
+a publication at any moment.
+- **comment create** - As a user I want to be able to create
+a comment in a publication ay any moment.
+- **post details** - As a user I want to be able to see all the
+details and comments. of a particular post in a new page.
+- **profile details** - As a user I want to be able to access
+my personal profile and edit my register parameters like
+username, email or password.
+- **search bar** - As a user I want to be able to search any
+post at any moment.
+- **like-unlike buttons** - As a user I want to be able to 
+like or unlike a publication.
+- **favourites button** - As a user I want to be able to
+add a particular post to my favourites section in my profile page.
+- **job offers** - As a user I want to be able to see and access
+to different job offers from home page.
+- **most liked publications** - As a user I want to know which
+publications have been most-liked and access their details page.
+
 
 ## Backlog
 
 List of other features outside of the MVPs scope
 
-User profile:
-- see my profile
-- upload my profile picture
-- see other users profile
-- list of events created by the user
-- list events the user is attending
-
-Geo Location:
-- add geolocation to events when creating
-- show event in a map in event detail page
-- show all events in a map in the event list page
-
-Homepage
-- ...
-
+- edit my profile username, age, image, email and password
+- add likes to publications
+- search posts
+- delete and edit comments
+- edit my own publications
+- see most-liked publications
+- moderator can edit, approve and delete user publications
+- admin can edit, approve and delete user publications
+- admin can edit and delete users
 
 ## ROUTES:
 
@@ -136,17 +152,42 @@ User model
 ```
 username: String
 password: String
+email: String
+age: Number
+profileImage: String
+role: String
+links: Array
+publications: Array
+favourites: Array
 ```
 
-Event model
+Publication model
 
 ```
-owner: ObjectId<User>
-name: String
-description: String
-date: Date
-location: String
-attendees: [ObjectId<User>]
+title: String
+content: String
+file: String
+user: Object
+approved: Boolean
+comments: Array
+likes: Number
+whoLikes: Array
+``` 
+
+Comment model
+
+```
+message: String
+user: Object
+edited: Boolean
+``` 
+
+Comment model
+
+```
+message: String
+user: Object
+edited: Boolean
 ``` 
 
 ## Links
