@@ -203,9 +203,7 @@ router.get("/edit/email", isUserLoggedIn, (req, res, next) => {
 // POST /profile/edit/email => Renders profile email edit page
 router.post("/edit/email", isUserLoggedIn, async (req, res, next) => {
   const { oldemail, newemail, repeatemail } = req.body;
-  console.log(oldemail)
-  console.log(newemail)
-  console.log(repeatemail)
+
 
   // Validation 1: fields mustn't be empty
   if (oldemail === "" || newemail === "" || repeatemail === "") {
@@ -238,7 +236,7 @@ router.post("/edit/email", isUserLoggedIn, async (req, res, next) => {
 
     // Validation 4: Email doesn't already exists in the DB
     const userEmail = await User.findOne({ email: oldemail }).select("email");
-    console.log(userEmail)
+    
     if (userEmail !== null && userEmail.email !== req.session.userOnline.email) {
       res.render("profile/edit-email.hbs", {
         errorMessage: "Email has been already registered in the website.",
@@ -266,8 +264,7 @@ router.get(
       const publicationDetails = await Publication.findById(
         publicationId
       ).populate("user");
-      console.log(publicationDetails);
-      res.render("profile/publication-details.hbs", {
+        res.render("profile/publication-details.hbs", {
         publicationDetails: publicationDetails,
       });
     } catch (error) {
@@ -282,7 +279,7 @@ router.post(
   isUserLoggedIn,
   async (req, res, next) => {
     const { publicationId } = req.params;
-    console.log(publicationId);
+   
     try {
       await Publication.findByIdAndDelete(publicationId);
 
@@ -368,10 +365,7 @@ router.post(
       const userOnline = await User.findById(req.session.userOnline);
       const currentUser = await User.findByIdAndUpdate(userOnline, {
         $pull: { favourites: publicationId },
-      }).select("username favourites");
-
-      console.log(currentUser);
-      console.log(currentPublication);
+      }).select("username favourites");    
 
       res.redirect("/profile");
     } catch (error) {
