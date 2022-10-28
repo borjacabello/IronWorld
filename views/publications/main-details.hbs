@@ -11,13 +11,16 @@
                 <div class="news-items d-flex flex-column">
                     <div class="d-flex flex-row justify-content-between">
                         <p><span>{{user.username}}</span></p>
-                        <p class="date">created on {{createdAt}}</p>
+                        <div class="d-flex flex-column align-items-center justify-content-around">
+                            <p class="date main">created on {{createdAt}}</p>
+                            <p class="date main">edited on {{updatedAt}}</p>
+                        </div>
                     </div>
                     <div class="separator"></div>
                     <div class="new-content d-flex flex-column">
                         <p class="new-title">{{title}}</p>
                         <p>{{content}}</p>
-                        <img src="{{file}}" alt="file" width="170px">
+                        <img class="news-image" src="{{file}}" alt="file" width="150px">
                     </div>
                 </div>
                 </div>
