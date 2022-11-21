@@ -1,4 +1,4 @@
-<div class="col-6 d-flex flex-column align-items-center justify-content-start">
+<div class="col-10 col-lg-6 d-flex flex-column align-items-center justify-content-start">
     <img id="iron-world-logo" src="../images/ironworld-logo.png" alt="ironworld-logo">
 
     {{!-- Let publications in the DB to be shown in Home page if approved --}}
@@ -49,7 +49,7 @@
     {{/each}}
 </div>
 
-<div id="right-nav-bar" class="col-4 d-flex flex-column bg-light justify-content-around">
+<div id="right-nav-bar" class="col-10 col-lg-4 d-flex flex-column bg-light justify-content-around">
     
     <form id ="search-form" action="user/search-publication" method="GET" class="d-flex flex-row justifiy-content-between">
         <input id="search-field" type="text" name="searchTerm" placeholder="Search a publication..." class="form-control">
@@ -61,7 +61,7 @@
         <h3 id="latest-title">Latest IT job offers</h3>
         <ul>
             {{#each jobOffers}}
-                <li><a href="{{url}}" target="_blank">{{title}}</a></li>
+                <li class="job-links"><a href="{{url}}" target="_blank" >{{title}}</a></li>
                 <div class="separator"></div>
             {{/each}}
         </ul>
@@ -76,7 +76,7 @@
                     <p class="icons" id = "likes-count">{{likes}}</p>
                     <img id="like" src="../images/like.png" alt="like" width="15px">
                 </div>
-                <a href="/user/{{_id}}/details">{{title}}</a>
+                <a class="liked-publication-link" href="/user/{{_id}}/details">{{title}}</a>
             </div>
             {{/if}}
         {{/each}}

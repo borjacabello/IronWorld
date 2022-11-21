@@ -59,6 +59,7 @@ h1 {
 
 #right-nav-bar {
   height: 100%;
+  margin: 0 auto;
   padding: 5vh 2vw;
   background-color: #57BBF5;
   border-radius: 30px;
@@ -220,6 +221,17 @@ h1 {
 
 #most-liked-title:hover {
   opacity: 1;
+}
+
+.job-links:hover {
+  transform: scale(1.25);
+  transition: all .5s ease 0s;
+}
+
+.liked-publication-link:hover {
+  transform: scale(1.1);
+  transition: all .5s ease 0s;
+  background-color: rgba(236, 154, 154, 0.411)
 }
 
 
@@ -391,8 +403,8 @@ h1 {
 
 /*Sign up page render*/
 #sign-up-page {
-  height: 95%;
-  width: 46%;
+  height: 100%;
+  width: 60%;
   margin: auto;
   padding: 25px;
   border-radius: 30px;
@@ -418,7 +430,7 @@ h1 {
 /*Log in page render*/
 #log-in-page {
   height: 80%;
-  width: 46%;
+  width: 60%;
   margin: auto;
   padding: 25px;
   border-radius: 30px;
@@ -445,8 +457,8 @@ h1 {
 #user-list {
   margin: auto;
   padding: 20px;
-  height: 80%;
-  width: 45%;
+  height: 100%;
+  width: 80%;
   border-radius: 30px;
 }
 
@@ -504,7 +516,7 @@ h1 {
   margin: auto;
   padding: 10px 20px;
   height: 90%;
-  width: 38%;
+  margin: auto;
   border-radius: 20px;
 }
 
@@ -539,7 +551,7 @@ h1 {
 #publication-details-edit-page {
   margin: auto;
   padding: 20px;
-  height: 70%;
+  height: 100%;
   width: 70%;
   border-radius: 30px;
 }
@@ -568,8 +580,9 @@ h1 {
 
 /* Main profile page */
 #profile-page {
-  width: 80%;
+  width: 81%;
   margin: 0;
+  padding: 0;
 }
 
 #profile-page h2 {
@@ -594,8 +607,12 @@ h1 {
   width: 80%;
 }
 
+.remove-profile {
+  width: 60px;
+}
+
 .profile-columns {
-  width: 40%;
+  width: 45%;
   padding: 10px;
   border-radius: 20px;
 }
@@ -655,4 +672,10 @@ h1 {
 
 #password-edit-div label {
   font-size: 18px;
+}
+
+@media (max-width: 500px) {
+  * {
+    font-size: 13px
+  }
 }
