@@ -1,4 +1,4 @@
-<div class="col-10 col-lg-6 d-flex flex-column align-items-center justify-content-start">
+<div id="posts-container" class="col-10 col-lg-6 d-flex flex-column align-items-center justify-content-start">
     <img id="iron-world-logo" src="../images/ironworld-logo.png" alt="ironworld-logo">
 
     {{!-- Let publications in the DB to be shown in Home page if approved --}}
@@ -30,7 +30,7 @@
                         <img class="news-image" src="{{file}}" alt="file" width="140px">
                     </div>
                     <div id = "new-buttons" class="d-flex flex-row justify-content-between align-items-center">
-                        <div id="like-unlike" class="d-flex flex-row justify-content-between">
+                        <div id="like-unlike" class="d-flex flex-row justify-content-start">
                             <form action="/user/{{_id}}/like" method="POST">
                                 <button class="btn btn-block btn-primary">Like</button>
                             </form>
