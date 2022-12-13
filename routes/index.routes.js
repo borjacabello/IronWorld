@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 const Publication = require("../models/Publication.model");
 const Comment = require("../models/Comment.model");
 const fetch = require('node-fetch');
-const Jobapi = require("../models/Jobapi.model.js");
+const jobOffers = require("../seeds/jobapi.seed.json");
 
 
 /* GET home page */
@@ -42,9 +42,7 @@ router.get("/", async (req, res, next) => {
     const sortedPublications = clonedPublicationsToSort.sort( (a, b) => b.likes - a.likes )
     const sortedPublicationsByLikes = sortedPublications.slice(0, 5)
 
-
-    // API jobs     ---  / ---  const jobOffers = await Jobapi.find()  => copy data if api doesnt work
-    const url = 'https://tech-job-search-api.p.rapidapi.com/';
+    /* const url = 'https://tech-job-search-api.p.rapidapi.com/';
     const options = {
     method: 'GET',
     headers: {
@@ -57,7 +55,7 @@ router.get("/", async (req, res, next) => {
     const jsonResponse = await response.json()
 
     // 10 job offers only to display at home page
-    let jobOffers = jsonResponse.slice(0, 10)
+    let jobOffers = jsonResponse.slice(0, 10) */
    
     res.render("index.hbs", {
       users,
